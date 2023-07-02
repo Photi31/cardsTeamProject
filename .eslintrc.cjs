@@ -4,5 +4,17 @@ module.exports = {
     'no-console': ['warn', {
       allow: ['warn', 'error']
     }]
+  },
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    "project": "./tsconfig.json"
+  },
+  settings: {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"],
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   }
 };

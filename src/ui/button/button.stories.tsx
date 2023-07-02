@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import { LogoutSvg } from '../../../assets/icons/logout.tsx'
 import { Typography } from '../typography'
 
 import { Button } from './'
+
+import { LogoutSvg } from 'assets/icons'
 
 const meta = {
   title: 'Components/Button',
@@ -21,7 +22,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 const clickButton = () => {
-  console.log('click')
+  // console.log('click')
 }
 
 export const Primary: Story = {
