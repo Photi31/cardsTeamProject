@@ -6,6 +6,19 @@ import '../src/styles/index.scss'
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
+    backgrounds: {
+      default: 'black',
+      values: [
+        {
+          name: 'black',
+          value: '#000',
+        },
+        {
+          name: 'white',
+          value: '#fff',
+        },
+      ],
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
