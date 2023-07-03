@@ -1,0 +1,82 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+
+  font-size: var(--font-size-s);
+  line-height: var(--line-height-m);
+  color: var(--color-light-100);
+
+  &.disabled {
+    color: var(--color-dark-100);
+  }
+}
+
+.root {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 18px;
+
+  background-color: var(--color-dark-900);
+  border: 2px solid var(--color-light-900);
+  border-radius: 2px;
+
+  &:focus {
+    background-color: var(--color-dark-900);
+  }
+
+  &:disabled {
+    cursor: initial;
+    border-color: var(--color-light-900);
+  }
+
+  &[data-state='checked']:disabled {
+    background-color: var(--color-light-700);
+  }
+}
+
+.buttonWrapper {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+
+  background-color: rgb(255 255 255 / 0%);
+  border-radius: 50%;
+
+  &.disabled {
+    cursor: initial;
+  }
+
+  &:focus-within{
+    background-color: var(--color-dark-100);
+  }
+
+  &:hover:not(.disabled),
+  &:hover .root:not([data-state='checked']) {
+    background-color: var(--color-dark-500);
+  }
+
+  &:active:not(.disabled) {
+    background-color: var(--color-dark-100);
+  }
+}
+
+.indicator {
+  width: 18px;
+  height: 18px;
+}
