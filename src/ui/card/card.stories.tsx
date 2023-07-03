@@ -7,7 +7,10 @@ const meta = {
   title: 'Components/Card',
   component: Card,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    className: { control: 'text' },
+    children: { control: 'text' },
+  },
 } satisfies Meta<typeof Card>
 
 export default meta
