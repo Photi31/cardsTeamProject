@@ -36,12 +36,11 @@ export const PrimaryWithIcon: Story = {
   args: {
     variant: 'primary',
     children: (
-        <>
-          <LogoutSvg />
-          Primary button
-        </>
+      <>
+        <LogoutSvg />
+        Primary button
+      </>
     ),
-    disabled: false,
   },
 }
 

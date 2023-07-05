@@ -1,5 +1,7 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
+import clsx from 'clsx'
+
 import s from './button.module.scss'
 
 import { Typography } from 'ui/typography'
@@ -13,7 +15,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
 } & ComponentPropsWithoutRef<'button'>
 
 export const Button = <T extends ElementType = 'button'>(
-    props: ButtonProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>
+  props: ButtonProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof ButtonProps<T>>
 ) => {
   const {
     variant = 'primary',
@@ -25,18 +27,16 @@ export const Button = <T extends ElementType = 'button'>(
     ...rest
   } = props
 
+  const classNames = clsx(s[variant], fullWidth && s.fullWidth, className)
+
   return (
-      <Typography
-          variant={Component === 'a' ? 'subtitle1' : 'subtitle2'}
-          color={variant === 'link' || variant === 'tertiary' ? 'secondary' : 'primary'}
-      >
-        <Component
-            onClick={onClick}
-            className={`${s[variant]} ${fullWidth ? s.fullWidth : ''} ${className ?? ''}`}
-            {...rest}
-        >
-          {children}
-        </Component>
-      </Typography>
+    <Typography
+      variant={Component === 'a' ? 'subtitle1' : 'subtitle2'}
+      color={variant === 'link' || variant === 'tertiary' ? 'secondary' : 'primary'}
+    >
+      <Component onClick={onClick} className={classNames} {...rest}>
+        {children}
+      </Component>
+    </Typography>
   )
 }
