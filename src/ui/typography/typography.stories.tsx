@@ -2,7 +2,20 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { Typography } from './'
 
-const variantOptions = ['large', 'h1', 'h2', 'h3', 'body1', 'body2', 'link2']
+const variantOptions = [
+  'large',
+  'h1',
+  'h2',
+  'h3',
+  'body1',
+  'body2',
+  'subtitle1',
+  'subtitle2',
+  'caption',
+  'overline',
+  'link1',
+  'link2',
+]
 const colorOptions = ['primary', 'secondary', 'inherit', 'link', 'error']
 
 const meta = {
@@ -18,6 +31,8 @@ const meta = {
       options: colorOptions,
       control: { type: 'radio' },
     },
+    className: { control: 'text' },
+    children: { control: 'text' },
   },
 } satisfies Meta<typeof Typography>
 
