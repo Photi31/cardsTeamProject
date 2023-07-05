@@ -10,6 +10,9 @@ const meta = {
   component: TabSwitcher,
   tags: ['autodocs'],
   argTypes: {
+    title: { control: 'text' },
+    className: { control: 'text' },
+    defaultValue: { control: 'text' },
     disabled: {
       options: [true, false],
       control: { type: 'radio' },
@@ -20,17 +23,28 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Tab: Story = {
+export const TwoTab: Story = {
   args: {
     list,
   },
 }
-export const TabWithDefaultValueParametr: Story = {
+export const TabWithDefaultValueParam: Story = {
   args: {
     list: list2,
-    defaultValue: 2,
+    defaultValue: 'Switcher',
   },
 }
+
+export const ControlledTab: Story = {
+  render: () => {
+    return <TabSwitcher list={list2} onValueChange={value => alert(value)} />
+  },
+  args: {
+    title: 'Tab',
+    list: list2,
+  },
+}
+
 export const TabDisabled: Story = {
   args: {
     list,

@@ -12,11 +12,16 @@ export type TabSwitcherType = {
   disabled?: boolean
   list: TabSwitcherList
   title?: string
-  defaultValue?: number
+  defaultValue?: string
+  onValueChange: (value: string) => void
 }
 
 export const TabSwitcher = (props: TabSwitcherType) => {
-  const { list, defaultValue = 1, title, className, disabled = false } = props
+  const { list, title, className, disabled = false, defaultValue = list[1], onValueChange } = props
+
+  const changeValueHandler = (value: string) => {
+    onValueChange(value)
+  }
 
   const classNames = {
     container: clsx(s.container, className),
@@ -25,26 +30,27 @@ export const TabSwitcher = (props: TabSwitcherType) => {
     trigger: clsx(s.trigger, disabled && s.disabled),
   }
 
-  if (list.length > 0) {
-    return (
-      <div className={classNames.container}>
-        <Typography variant="body2" className={s.title}>
-          {title}
-        </Typography>
-        <Tabs.Root className={classNames.root} defaultValue={list[defaultValue]}>
-          <Tabs.List className={classNames.list}>
-            {list.map((el, i) => (
-              <Tabs.Trigger key={i} className={classNames.trigger} value={el}>
-                <Typography variant="body1" color="primary">
-                  {el}
-                </Typography>
-              </Tabs.Trigger>
-            ))}
-          </Tabs.List>
-        </Tabs.Root>
-      </div>
-    )
-  } else {
-    return <div className={classNames.container}>Упс... 🧐 Что-то пошло не так!</div>
-  }
+  return (
+    <div className={classNames.container}>
+      <Typography variant="body2" className={s.title}>
+        {title}
+      </Typography>
+      <Tabs.Root
+        className={classNames.root}
+        defaultValue={defaultValue}
+        aria-label={title}
+        onValueChange={changeValueHandler}
+      >
+        <Tabs.List className={classNames.list}>
+          {list.map((el, i) => (
+            <Tabs.Trigger key={i} className={classNames.trigger} value={el}>
+              <Typography variant="body1" color="primary">
+                {el}
+              </Typography>
+            </Tabs.Trigger>
+          ))}
+        </Tabs.List>
+      </Tabs.Root>
+    </div>
+  )
 }
