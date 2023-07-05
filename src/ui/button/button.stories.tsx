@@ -41,7 +41,6 @@ export const PrimaryWithIcon: Story = {
         Primary button
       </>
     ),
-    disabled: false,
   },
 }
 
