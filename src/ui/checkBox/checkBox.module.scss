@@ -4,6 +4,9 @@
 }
 
 .label {
+  cursor: pointer;
+  user-select: none;
+
   display: flex;
   align-items: center;
 
@@ -12,6 +15,7 @@
   color: var(--color-light-100);
 
   &.disabled {
+    cursor: default;
     color: var(--color-dark-100);
   }
 }
@@ -54,7 +58,6 @@
   width: 36px;
   height: 36px;
 
-
   background-color: rgb(255 255 255 / 0%);
   border-radius: 50%;
 
@@ -62,12 +65,12 @@
     cursor: initial;
   }
 
-  &:focus-within{
+  &:focus-within {
     background-color: var(--color-dark-100);
   }
 
   &:hover:not(.disabled),
-  &:hover .root:not([data-state='checked']) {
+  &:hover:not(.disabled) .root:not([data-state='checked']) {
     background-color: var(--color-dark-500);
   }
 
