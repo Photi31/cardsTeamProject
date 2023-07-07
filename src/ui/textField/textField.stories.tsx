@@ -15,6 +15,9 @@ const meta = {
       options: [true, false],
       control: { type: 'radio' },
     },
+    label: { control: 'text' },
+    errorMessage: { control: 'text' },
+    className: { control: 'text' },
   },
 } satisfies Meta<typeof TextField>
 
@@ -43,6 +46,6 @@ export const ErrorInput: Story = {
   args: {
     label: 'Error Input',
     type: 'password',
-    error: 'Error',
+    errorMessage: 'Error',
   },
 }

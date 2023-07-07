@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, useState } from 'react'
 
 import clsx from 'clsx'
 
@@ -13,17 +13,33 @@ import { Search } from 'assets/icons/search.tsx'
 
 export type TextFieldType = {
   className?: string
-  type?: 'password' | 'search'
+  type?: 'password' | 'search' | 'text'
   label?: string
   placeholder?: string
   disabled?: boolean
-  error?: string
-}
+  errorMessage?: string
+} & ComponentPropsWithoutRef<'input'>
 
 export const TextField = (props: TextFieldType) => {
-  const { error, className, disabled = false, placeholder = 'Input', type = 'text', label } = props
-  const [active, setActive] = useState<boolean>(false)
+  const {
+    errorMessage,
+    className,
+    disabled = false,
+    placeholder = 'Input',
+    type = 'text',
+    label,
+  } = props
   const [isEye, setIsEye] = useState<boolean>(true)
+  const [inputValue, setInputValue] = useState<string>('')
+
+  const changeInputValue = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.currentTarget.value)
+  }
+
+  const clearHandler = () => {
+    setInputValue('')
+  }
+
   const Input = (type: string) => {
     switch (type) {
       case 'search': {
@@ -34,10 +50,10 @@ export const TextField = (props: TextFieldType) => {
               disabled={disabled}
               className={classNames.input}
               placeholder={placeholder}
-              onFocus={() => setActive(true)}
-              onBlur={() => setActive(false)}
+              value={inputValue}
+              onChange={changeInputValue}
             />
-            {active && <Close className={s.close} />}
+            <Close className={s.close} onClick={clearHandler} />
           </>
         )
       }
@@ -60,14 +76,12 @@ export const TextField = (props: TextFieldType) => {
       }
       default: {
         return (
-          <>
-            <input
-              disabled={disabled}
-              type={'text'}
-              placeholder={placeholder}
-              className={classNames.input}
-            />
-          </>
+          <input
+            disabled={disabled}
+            type={'text'}
+            placeholder={placeholder}
+            className={classNames.input}
+          />
         )
       }
     }
@@ -75,10 +89,11 @@ export const TextField = (props: TextFieldType) => {
 
   const classNames = {
     container: clsx(s.container, className),
-    wrapper: clsx(s.wrapper, disabled && s.disabled, error && s.error),
+    wrapper: clsx(s.wrapper, disabled && s.disabled, errorMessage && s.error),
     label: clsx(s.label, disabled && s.disabled),
     error: s.error,
-    input: clsx(s.input, error && s.error),
+    input: clsx(s.input, errorMessage && s.error),
+    clearButton: s.clearButton,
   }
 
   return (
@@ -88,7 +103,7 @@ export const TextField = (props: TextFieldType) => {
         <Typography variant={'body1'}>
           <div className={classNames.wrapper}>{Input(type)}</div>
         </Typography>
-        {error && <div className={s.error}>{error}</div>}
+        {errorMessage && <div className={s.error}>{errorMessage}</div>}
       </Typography>
     </div>
   )
