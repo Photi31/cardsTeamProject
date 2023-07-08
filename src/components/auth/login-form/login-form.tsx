@@ -5,9 +5,9 @@ import { z } from 'zod'
 import s from './login-form.module.scss'
 
 import { Button } from 'ui/button'
+import { Card } from 'ui/card'
 import { ControlledTextField } from 'ui/controlled'
 import { ControlledCheckbox } from 'ui/controlled/controlled-checkbox.tsx'
-import { Header } from 'ui/header'
 import { Typography } from 'ui/typography'
 
 const schema = z.object({
@@ -25,56 +25,67 @@ const schema = z.object({
     .min(3, 'Login must be at least 3 characters'),
 })
 
-type Form = z.infer<typeof schema>
+export type FormType = z.infer<typeof schema>
 
-export const LoginForm = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Form>({
+type Props = {
+  onSubmit: (data: FormType) => void
+}
+
+export const LoginForm = ({ onSubmit }: Props) => {
+  const { control, handleSubmit } = useForm<FormType>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
   })
 
-  console.log(errors)
-  const onSubmit = (data: Form) => {
-    console.log(data)
-  }
+  const handleFormSubmitted = () => handleSubmit(onSubmit)
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={s.signInContainer}>
-      <Header />
-      <Typography variant="large">Sign In</Typography>
-      <div className={s.inputsContainer}>
-        <div className={s.inputs}>
-          <ControlledTextField label={'Email'} name={'email'} control={control} type="text" />
-          <ControlledTextField
-            label={'Password'}
-            name={'password'}
-            control={control}
-            type="password"
-          />
+    <form onSubmit={handleFormSubmitted}>
+      <Card className={s.signInContainer}>
+        <Typography variant="large">Sign In</Typography>
+        <div className={s.inputsContainer}>
+          <div className={s.inputs}>
+            <ControlledTextField
+              placeholder={'Enter you email'}
+              label={'Email'}
+              name={'email'}
+              control={control}
+              type="text"
+            />
+            <ControlledTextField
+              placeholder={'Enter you password'}
+              label={'Password'}
+              name={'password'}
+              control={control}
+              type="password"
+            />
+          </div>
+          <div className={s.inputCheckboxContainer}>
+            <label className={s.checkbox}>
+              <ControlledCheckbox label={'Remember me'} name={'rememberMe'} control={control} />
+            </label>
+          </div>
         </div>
-        <div className={s.inputCheckboxContainer}>
-          <label className={s.checkbox}>
-            <ControlledCheckbox label={'Remember me'} name={'rememberMe'} control={control} />
-          </label>
+        <div className={s.forgotPassword}>
+          <Typography variant="body1">Forgot Password?</Typography>
         </div>
-      </div>
-      <div className={s.forgotPassword}>
-        <Typography variant="body1">Forgot Password?</Typography>
-      </div>
 
-      <div className={s.signInButton}>
-        <Button type="submit" fullWidth={true}>
-          Sign In
-        </Button>
-      </div>
-      <Typography variant="caption" color="inherit">
-        Dont have an account
-      </Typography>
-      <Typography variant="link1">Sign Up</Typography>
+        <div className={s.signInButton}>
+          <Button type="button" fullWidth={true}>
+            Sign In
+          </Button>
+        </div>
+        <Typography variant="caption" color="inherit" className={s.dontHaveAccount}>
+          {"Don't have an account?"}
+        </Typography>
+        <Typography variant="link1" color="secondary" className={s.signUp}>
+          Sign Up
+        </Typography>
+      </Card>
     </form>
   )
 }
+
+// - console log не убраны
+// - onSubmit в пропсы и сторибук action
+// - пропсы href для ссылок forgot и sign up

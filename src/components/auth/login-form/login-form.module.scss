@@ -1,14 +1,11 @@
 .signInContainer {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  gap: 18px;
+  align-content: center;
   align-items: center;
   justify-content: center;
 
-  width: 420px;
   height: 530px;
-  margin: 0 auto;
-  margin-top: 100px;
   padding: 100px 35px;
 
   background-color: var(--color-dark-700);
@@ -35,7 +32,7 @@
     position: relative;
     justify-content: start;
     width: 100%;
-    height: 40px;
+    height: 20px;
 
     .checkbox {
       cursor: pointer;
@@ -51,9 +48,25 @@
 
   .forgotPassword {
     cursor: pointer;
+    margin-bottom: 70px;
     margin-left: 210px;
-    padding-bottom: 30px;
+
+    a {
+      text-decoration: none;
+    }
   }
+
+  .dontHaveAccount {
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-regular);
+  }
+
+  .signUp {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-regular);
+  }
+
+
 }
 
 
