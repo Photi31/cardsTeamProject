@@ -3,11 +3,26 @@ module.exports = {
   rules: {
     'no-console': ['warn', {
       allow: ['warn', 'error']
-    }]
-  },
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    "project": "./tsconfig.json"
+    }],
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        pathGroupsExcludedImportTypes: ['react'],
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+        groups: ['builtin', 'external', "internal", 'parent', 'sibling', 'index'],
+        pathGroups: [
+          {
+            pattern: 'react',
+            group: 'external',
+            position: 'before',
+          },
+        ],
+      },
+    ],
   },
   settings: {
     "import/resolver": {
