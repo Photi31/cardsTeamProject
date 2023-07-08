@@ -31,6 +31,7 @@ export const Button = <T extends ElementType = 'button'>(
 
   return (
     <Typography
+      as="div"
       variant={Component === 'a' ? 'subtitle1' : 'subtitle2'}
       color={variant === 'link' || variant === 'tertiary' ? 'secondary' : 'primary'}
     >
