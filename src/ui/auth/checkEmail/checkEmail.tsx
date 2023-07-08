@@ -15,6 +15,7 @@ export const CheckEmail = ({ email }: CheckEmailType) => {
     title: s.title,
     img: s.img,
     email: s.email,
+    button: s.button,
   }
 
   return (
@@ -27,7 +28,7 @@ export const CheckEmail = ({ email }: CheckEmailType) => {
         We’ve sent an Email with instructions to <br />
         {email}
       </Typography>
-      <Button as="a" variant="primary" fullWidth>
+      <Button as="a" variant="primary" fullWidth className={classNames.button}>
         Back to Sign In
       </Button>
     </Card>
