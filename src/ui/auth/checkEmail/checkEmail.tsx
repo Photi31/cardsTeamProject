@@ -12,13 +12,16 @@ export type CheckEmailType = {
 export const CheckEmail = ({ email }: CheckEmailType) => {
   const classNames = {
     root: s.root,
+    title: s.title,
     img: s.img,
     email: s.email,
   }
 
   return (
     <Card className={classNames.root}>
-      <Typography variant="large">Check Email</Typography>
+      <Typography variant="large" className={classNames.title}>
+        Check Email
+      </Typography>
       <CheckEmailSvg className={classNames.img} />
       <Typography variant="body2" color="inherit" className={classNames.email}>
         We’ve sent an Email with instructions to <br />
