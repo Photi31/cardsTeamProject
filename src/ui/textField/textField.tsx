@@ -100,7 +100,7 @@ export const TextField = (props: TextFieldType) => {
     <div className={classNames.container}>
       <Typography variant={'body2'} as={'label'} className={classNames.label} color="inherit">
         {label && label}
-        <Typography variant={'body1'}>
+        <Typography as="div" variant={'body1'}>
           <div className={classNames.wrapper}>{Input(type)}</div>
         </Typography>
         {errorMessage && <div className={s.error}>{errorMessage}</div>}
