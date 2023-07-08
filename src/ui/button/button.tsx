@@ -30,13 +30,13 @@ export const Button = <T extends ElementType = 'button'>(
   const classNames = clsx(s[variant], fullWidth && s.fullWidth, className)
 
   return (
-    <Typography
-      variant={Component === 'a' ? 'subtitle1' : 'subtitle2'}
-      color={variant === 'link' || variant === 'tertiary' ? 'secondary' : 'primary'}
-    >
-      <Component onClick={onClick} className={classNames} {...rest}>
+    <Component onClick={onClick} className={classNames} {...rest}>
+      <Typography
+        variant={Component === 'a' ? 'subtitle1' : 'subtitle2'}
+        color={variant === 'link' || variant === 'tertiary' ? 'secondary' : 'primary'}
+      >
         {children}
-      </Component>
-    </Typography>
+      </Typography>
+    </Component>
   )
 }
