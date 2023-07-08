@@ -28,16 +28,18 @@ const schema = z.object({
 export type FormType = z.infer<typeof schema>
 
 type Props = {
-  onSubmit: (data: FormType) => void
+  forgoHref?: string
+  signUpHref?: string
+  onSubmit?: (data: FormType) => void
 }
 
-export const LoginForm = ({ onSubmit }: Props) => {
+export const LoginForm = ({ onSubmit, forgoHref, signUpHref }: Props) => {
   const { control, handleSubmit } = useForm<FormType>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
   })
 
-  const handleFormSubmitted = () => handleSubmit(onSubmit)
+  const handleFormSubmitted = handleSubmit(onSubmit!)
 
   return (
     <form onSubmit={handleFormSubmitted}>
@@ -67,18 +69,26 @@ export const LoginForm = ({ onSubmit }: Props) => {
           </div>
         </div>
         <div className={s.forgotPassword}>
-          <Typography variant="body1">Forgot Password?</Typography>
+          <Typography as={'a'} href={forgoHref} variant="body1">
+            Forgot Password?
+          </Typography>
         </div>
 
         <div className={s.signInButton}>
-          <Button type="button" fullWidth={true}>
+          <Button type="submit" fullWidth={true}>
             Sign In
           </Button>
         </div>
         <Typography variant="caption" color="inherit" className={s.dontHaveAccount}>
           {"Don't have an account?"}
         </Typography>
-        <Typography variant="link1" color="secondary" className={s.signUp}>
+        <Typography
+          as={'a'}
+          href={signUpHref}
+          variant="link1"
+          color="secondary"
+          className={s.signUp}
+        >
           Sign Up
         </Typography>
       </Card>
@@ -86,6 +96,4 @@ export const LoginForm = ({ onSubmit }: Props) => {
   )
 }
 
-// - console log не убраны
-// - onSubmit в пропсы и сторибук action
 // - пропсы href для ссылок forgot и sign up
