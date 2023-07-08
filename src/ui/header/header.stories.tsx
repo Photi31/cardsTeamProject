@@ -6,7 +6,7 @@ import { ProfileAvatar } from 'assets/icons'
 import { Header } from 'ui/header/header.tsx'
 
 const meta = {
-  title: 'Header',
+  title: 'Layout/Header',
   component: Header,
   tags: ['autodocs'],
 } satisfies Meta<typeof Header>
