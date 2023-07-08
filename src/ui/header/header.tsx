@@ -1,10 +1,10 @@
 import { ReactNode } from 'react'
 
-import s from './header.module.scss'
-
 import { Logo } from 'assets/icons'
 import { Button } from 'ui/button'
 import { Avatars as Avatar } from 'ui/userAvatar/avatar.tsx'
+
+import s from './header.module.scss'
 
 export type User = {
   name: string

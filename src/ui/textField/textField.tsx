@@ -2,14 +2,14 @@ import { ChangeEvent, ComponentPropsWithoutRef, useState } from 'react'
 
 import clsx from 'clsx'
 
-import { Typography } from '../typography'
-
-import s from './textField.module.scss'
-
 import { Close } from 'assets/icons/close.tsx'
 import { EyeSlash } from 'assets/icons/eye-slash.tsx'
 import { Eye } from 'assets/icons/eye.tsx'
 import { Search } from 'assets/icons/search.tsx'
+
+import { Typography } from '../typography'
+
+import s from './textField.module.scss'
 
 export type TextFieldType = {
   className?: string

@@ -5,9 +5,9 @@ import * as LabelRadix from '@radix-ui/react-label'
 import { clsx } from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import s from './checkBox.module.scss'
-
 import { Check } from 'assets/icons'
+
+import s from './checkBox.module.scss'
 
 export type CheckboxProps = {
   checked: boolean

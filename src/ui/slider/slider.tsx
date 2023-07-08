@@ -2,9 +2,9 @@ import { CSSProperties, useState } from 'react'
 
 import * as RadixSlider from '@radix-ui/react-slider'
 
-import s from './slider.module.scss'
-
 import { Typography } from 'ui/typography'
+
+import s from './slider.module.scss'
 
 type Props = {
   label?: string

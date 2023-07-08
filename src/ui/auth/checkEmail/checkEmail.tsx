@@ -1,9 +1,9 @@
-import s from './checkEmail.module.scss'
-
 import { CheckEmailSvg } from 'assets/icons/checkEmail.tsx'
 import { Button } from 'ui/button'
 import { Card } from 'ui/card'
 import { Typography } from 'ui/typography'
+
+import s from './checkEmail.module.scss'
 
 export type CheckEmailType = {
   email: string
