@@ -33,6 +33,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldType>((props, ref
   const [isEye, setIsEye] = useState<boolean>(true)
   const [inputValue, setInputValue] = useState<string>('')
 
+  const showError = !!errorMessage && errorMessage.length > 0
   const changeInputValue = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.currentTarget.value)
   }
@@ -112,6 +113,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldType>((props, ref
         </Typography>
         {errorMessage && <div className={s.error}>{errorMessage}</div>}
       </Typography>
+      {showError && <Typography variant="error" errorMessage={errorMessage} showError={true} />}
     </div>
   )
 })
