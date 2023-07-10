@@ -1,11 +1,11 @@
 import * as RadixSelect from '@radix-ui/react-select'
 import { clsx } from 'clsx'
 
+import { ArrowDown } from 'assets/icons'
+
 import { Typography } from '../typography'
 
 import s from './select.module.scss'
-
-import { ArrowDown } from 'assets/icons'
 
 type Props = {
   label?: string

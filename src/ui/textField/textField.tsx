@@ -2,14 +2,14 @@ import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'rea
 
 import clsx from 'clsx'
 
-import { Typography } from '../typography'
-
-import s from './textField.module.scss'
-
 import { Close } from 'assets/icons/close.tsx'
 import { EyeSlash } from 'assets/icons/eye-slash.tsx'
 import { Eye } from 'assets/icons/eye.tsx'
 import { Search } from 'assets/icons/search.tsx'
+
+import { Typography } from '../typography'
+
+import s from './textField.module.scss'
 
 export type TextFieldType = {
   className?: string
@@ -20,7 +20,7 @@ export type TextFieldType = {
   errorMessage?: string
 } & ComponentPropsWithoutRef<'input'>
 
-export const TextField = forwardRef<HTMLInputElement, TextFieldType>(props => {
+export const TextField = forwardRef<HTMLInputElement, TextFieldType>((props, ref) => {
   const {
     errorMessage,
     className,
@@ -54,6 +54,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldType>(props => {
               placeholder={placeholder}
               value={inputValue}
               onChange={changeInputValue}
+              ref={ref}
               {...rest}
             />
             <Close className={s.close} onClick={clearHandler} />
@@ -68,6 +69,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldType>(props => {
               type={isEye ? 'password' : 'text'}
               placeholder={placeholder}
               className={classNames.input}
+              ref={ref}
               {...rest}
             />
             {isEye ? (
@@ -85,6 +87,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldType>(props => {
             type={'text'}
             placeholder={placeholder}
             className={classNames.input}
+            ref={ref}
             {...rest}
           />
         )
@@ -105,7 +108,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldType>(props => {
     <div className={classNames.container}>
       <Typography variant={'body2'} as={'label'} className={classNames.label} color="inherit">
         {label && label}
-        <Typography variant={'body1'}>
+        <Typography as="div" variant={'body1'}>
           <div className={classNames.wrapper}>{Input(type)}</div>
         </Typography>
         {errorMessage && <div className={s.error}>{errorMessage}</div>}

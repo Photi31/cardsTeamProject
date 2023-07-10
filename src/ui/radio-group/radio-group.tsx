@@ -1,8 +1,8 @@
 import { CSSProperties, ChangeEvent } from 'react'
 
-import s from './radio-group.module.scss'
-
 import { RadioButton } from 'ui/radio-button'
+
+import s from './radio-group.module.scss'
 
 type Props = {
   options: string[]

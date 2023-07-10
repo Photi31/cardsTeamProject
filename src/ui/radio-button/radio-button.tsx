@@ -2,9 +2,9 @@ import { CSSProperties, ComponentPropsWithoutRef } from 'react'
 
 import clsx from 'clsx'
 
-import s from './radio-button.module.scss'
-
 import { Typography } from 'ui/typography'
+
+import s from './radio-button.module.scss'
 
 type Props = {
   label?: string

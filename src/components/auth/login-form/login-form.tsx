@@ -2,13 +2,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import s from './login-form.module.scss'
-
 import { Button } from 'ui/button'
 import { Card } from 'ui/card'
 import { ControlledTextField } from 'ui/controlled'
 import { ControlledCheckbox } from 'ui/controlled/controlled-checkbox.tsx'
 import { Typography } from 'ui/typography'
+
+import s from './login-form.module.scss'
 
 const schema = z.object({
   password: z

@@ -2,9 +2,9 @@ import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
 import clsx from 'clsx'
 
-import s from './button.module.scss'
-
 import { Typography } from 'ui/typography'
+
+import s from './button.module.scss'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   children?: ReactNode
@@ -27,14 +27,19 @@ export const Button = <T extends ElementType = 'button'>(
     ...rest
   } = props
 
-  const classNames = clsx(s[variant], fullWidth && s.fullWidth, className)
+  const classNames = {
+    button: clsx(s[variant], fullWidth && s.fullWidth),
+    container: clsx(fullWidth && s.fullWidth, className),
+  }
 
   return (
     <Typography
+      className={classNames.container}
+      as="div"
       variant={Component === 'a' ? 'subtitle1' : 'subtitle2'}
       color={variant === 'link' || variant === 'tertiary' ? 'secondary' : 'primary'}
     >
-      <Component onClick={onClick} className={classNames} {...rest}>
+      <Component onClick={onClick} className={classNames.button} {...rest}>
         {children}
       </Component>
     </Typography>
