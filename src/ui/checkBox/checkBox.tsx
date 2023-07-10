@@ -1,5 +1,3 @@
-import { forwardRef } from 'react'
-
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import * as LabelRadix from '@radix-ui/react-label'
 import { clsx } from 'clsx'
@@ -19,7 +17,7 @@ export type CheckboxProps = {
   className?: string
 }
 
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(props => {
+export const Checkbox = (props: CheckboxProps) => {
   const { checked, onChange, disabled, required, label, id } = props
 
   const classNames = {
@@ -76,4 +74,4 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(props => {
       </LabelRadix.Root>
     </div>
   )
-})
+}
