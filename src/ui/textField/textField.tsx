@@ -1,4 +1,4 @@
-import { ChangeEvent, ComponentPropsWithoutRef, useState } from 'react'
+import { ChangeEvent, ComponentPropsWithoutRef, forwardRef, useState } from 'react'
 
 import clsx from 'clsx'
 
@@ -20,7 +20,7 @@ export type TextFieldType = {
   errorMessage?: string
 } & ComponentPropsWithoutRef<'input'>
 
-export const TextField = (props: TextFieldType) => {
+export const TextField = forwardRef<HTMLInputElement, TextFieldType>((props, ref) => {
   const {
     errorMessage,
     className,
@@ -28,6 +28,7 @@ export const TextField = (props: TextFieldType) => {
     placeholder = 'Input',
     type = 'text',
     label,
+    ...rest
   } = props
   const [isEye, setIsEye] = useState<boolean>(true)
   const [inputValue, setInputValue] = useState<string>('')
@@ -52,6 +53,8 @@ export const TextField = (props: TextFieldType) => {
               placeholder={placeholder}
               value={inputValue}
               onChange={changeInputValue}
+              ref={ref}
+              {...rest}
             />
             <Close className={s.close} onClick={clearHandler} />
           </>
@@ -65,6 +68,8 @@ export const TextField = (props: TextFieldType) => {
               type={isEye ? 'password' : 'text'}
               placeholder={placeholder}
               className={classNames.input}
+              ref={ref}
+              {...rest}
             />
             {isEye ? (
               <Eye onClick={() => setIsEye(false)} />
@@ -81,6 +86,8 @@ export const TextField = (props: TextFieldType) => {
             type={'text'}
             placeholder={placeholder}
             className={classNames.input}
+            ref={ref}
+            {...rest}
           />
         )
       }
@@ -107,4 +114,4 @@ export const TextField = (props: TextFieldType) => {
       </Typography>
     </div>
   )
-}
+})
