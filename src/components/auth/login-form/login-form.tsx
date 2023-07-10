@@ -37,6 +37,10 @@ export const LoginForm = ({ onSubmit, forgoHref, signUpHref }: Props) => {
   const { control, handleSubmit } = useForm<FormType>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   })
 
   const handleFormSubmitted = handleSubmit(onSubmit!)
