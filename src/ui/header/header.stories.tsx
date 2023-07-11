@@ -18,6 +18,7 @@ export const LoggedIn: Story = {
   args: {
     user: {
       name: 'Ivan',
+      email: 'j&johnson@gmail.com',
     },
     isLogin: true,
     children: <ProfileAvatar />,
@@ -42,6 +43,7 @@ export const LoggedOut: Story = {
   args: {
     user: {
       name: 'Ivan',
+      email: 'j&johnson@gmail.com',
     },
     children: <ProfileAvatar />,
   },
