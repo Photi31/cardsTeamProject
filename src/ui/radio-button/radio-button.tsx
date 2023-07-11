@@ -20,7 +20,7 @@ export const RadioButton = (
 
   return (
     <label
-      className={clsx(disabled ? s.disabled : undefined, className) || undefined}
+      className={clsx(s.label, disabled ? s.disabled : undefined, className) || undefined}
       style={style}
     >
       <input type="radio" className={s.radio} disabled={disabled} {...restProps} />
