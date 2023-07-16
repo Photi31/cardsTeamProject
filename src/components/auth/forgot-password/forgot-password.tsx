@@ -50,11 +50,9 @@ export const ForgotPassword = ({ onSubmit, tryLoggingHref }: Props) => {
               type="text"
             />
           </div>
-          <div className={s.inputDescription}>
-            <Typography variant="caption" color="inherit" className={s.instructionsText}>
-              Enter your email address and we will send you further instructions
-            </Typography>
-          </div>
+          <Typography variant="caption" color="inherit" className={s.instructionsText}>
+            Enter your email address and we will send you further instructions
+          </Typography>
         </div>
 
         <div className={s.sendInstructionsButton}>
