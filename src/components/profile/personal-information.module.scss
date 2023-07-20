@@ -1,0 +1,55 @@
+.profileContainer {
+  display: block;
+  padding: 33px 33px 41px;
+}
+
+.photoContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 6px;
+
+
+  > div {
+    position: relative;
+
+
+    > .editAvatarButton {
+      all: unset;
+
+      cursor: pointer;
+
+      position: absolute;
+      right: 0;
+      bottom: 0;
+
+      width: 32px;
+      height: 32px;
+
+      > button {
+        padding: 6px;
+        outline: none;
+      }
+    }
+  }
+}
+
+img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+}
+
+.title {
+  margin-bottom: 27px;
+  text-align: center;
+}
+
+.inputPhoto {
+  cursor: pointer;
+  display: none;
+  width: 10px;
+  height: 10px;
+
+}
+

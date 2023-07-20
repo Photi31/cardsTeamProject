@@ -1,0 +1,37 @@
+.nameContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.editNameButton {
+  all: unset;
+
+  cursor: pointer;
+
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 16px;
+  height: 16px;
+
+  > button:focus {
+    padding: 0;
+    outline: none;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+
+.email {
+  margin-bottom: 13px;
+  color: var(--color-dark-100);
+  text-align: center;
+}
