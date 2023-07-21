@@ -24,6 +24,7 @@ export const Default: Story = {
     return (
       <>
         <PersonalInformation
+          onAvatarChange={() => {}}
           email={'j&johnson@gmail.com'}
           name={name}
           onNameChange={handleNameChange}
@@ -38,14 +39,5 @@ export const Default: Story = {
   args: {
     email: 'j&johnson@gmail.com',
     name: 'Ivan',
-    onAvatarChange: () => {
-      console.info('avatar changed')
-    },
-    onNameChange: () => {
-      console.info('name changed')
-    },
-    onLogout: () => {
-      console.info('logout')
-    },
   },
 }
