@@ -1,0 +1,30 @@
+.profileContainer {
+  display: block;
+  padding: 33px 33px 41px;
+}
+
+.photoContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 6px;
+
+
+  > div {
+    position: relative;
+  }
+}
+
+img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.title {
+  margin-bottom: 27px;
+  text-align: center;
+}
+
+

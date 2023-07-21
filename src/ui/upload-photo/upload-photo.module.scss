@@ -1,0 +1,25 @@
+.editAvatarButton {
+  all: unset;
+
+  cursor: pointer;
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  width: 32px;
+  height: 32px;
+
+  > button {
+    padding: 6px;
+    outline: none;
+  }
+}
+
+.inputPhoto {
+  cursor: pointer;
+  display: none;
+  width: 10px;
+  height: 10px;
+
+}
