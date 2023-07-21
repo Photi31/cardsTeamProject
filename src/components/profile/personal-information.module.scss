@@ -12,25 +12,6 @@
 
   > div {
     position: relative;
-
-
-    > .editAvatarButton {
-      all: unset;
-
-      cursor: pointer;
-
-      position: absolute;
-      right: 0;
-      bottom: 0;
-
-      width: 32px;
-      height: 32px;
-
-      > button {
-        padding: 6px;
-        outline: none;
-      }
-    }
   }
 }
 
@@ -38,6 +19,7 @@ img {
   width: 96px;
   height: 96px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .title {
@@ -45,11 +27,4 @@ img {
   text-align: center;
 }
 
-.inputPhoto {
-  cursor: pointer;
-  display: none;
-  width: 10px;
-  height: 10px;
-
-}
 
