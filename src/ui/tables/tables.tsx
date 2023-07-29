@@ -7,9 +7,7 @@ import { Typography } from 'ui/typography'
 
 import s from './tables.module.scss'
 
-export type RootProps = ComponentProps<'table'>
-
-export const Root: FC<RootProps> = ({ className, ...rest }) => {
+export const Root: FC<ComponentProps<'table'>> = ({ className, ...rest }) => {
   const classNames = {
     table: clsx(className, s.table),
   }
@@ -67,23 +65,19 @@ export const Header: FC<
     </Head>
   )
 }
-export type BodyProps = ComponentProps<'tbody'>
-
-export const Body: FC<BodyProps> = props => {
+export const Body: FC<ComponentProps<'tbody'>> = props => {
   return <tbody {...props} />
 }
 
-export type RowProps = ComponentProps<'tr'>
-
-export const Row: FC<RowProps> = props => {
+export const Row: FC<ComponentProps<'tr'>> = props => {
   return <tr {...props} />
 }
 
-export type HeadCellProps = ComponentProps<'th'> & {
-  sortable?: boolean
-}
-
-export const HeadCell: FC<HeadCellProps> = ({ className, children, sortable, ...rest }) => {
+export const HeadCell: FC<
+  ComponentProps<'th'> & {
+    sortable?: boolean
+  }
+> = ({ className, children, sortable, ...rest }) => {
   const classNames = {
     headCell: clsx(className, s.headCell, sortable && s.sortable),
   }
@@ -95,9 +89,7 @@ export const HeadCell: FC<HeadCellProps> = ({ className, children, sortable, ...
   )
 }
 
-export type CellProps = ComponentProps<'td'>
-
-export const Cell: FC<CellProps> = ({ className, ...rest }) => {
+export const Cell: FC<ComponentProps<'td'>> = ({ className, ...rest }) => {
   const classNames = {
     cell: clsx(className, s.tableCell),
   }
