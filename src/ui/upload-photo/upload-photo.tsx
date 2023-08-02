@@ -1,6 +1,6 @@
 import { ChangeEvent, useRef } from 'react'
 
-import { Redactor } from 'assets/icons/redactor.tsx'
+import { ChangePhoto } from 'assets/icons'
 import { Button } from 'ui/button'
 
 import s from './upload-photo.module.scss'
@@ -38,7 +38,7 @@ export const UploadPhoto = ({ onAvatarChange, setNewAvatar }: Props) => {
 
   return (
     <Button variant="secondary" className={s.editAvatarButton}>
-      <Redactor onClick={onClickChangeAvaHandler} />
+      <ChangePhoto onClick={onClickChangeAvaHandler} />
       <input
         ref={fileInputRef}
         type="file"

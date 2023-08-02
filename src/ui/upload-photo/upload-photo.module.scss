@@ -10,8 +10,9 @@
   width: 32px;
   height: 32px;
 
-  > button {
+  & button {
     padding: 6px;
+    border-radius: 50%;
     outline: none;
   }
 }
