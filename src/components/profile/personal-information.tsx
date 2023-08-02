@@ -14,7 +14,7 @@ type Props = {
   avatar?: string
   name: string
   onLogout?: () => void
-  onAvatarChange: (newAvatar: File) => void
+  onAvatarChange?: (newAvatar: File) => void
   onNameChange?: (newName: string) => void
 }
 
@@ -50,17 +50,15 @@ export const PersonalInformation = ({
       <div className={s.photoContainer}>
         <div>
           <Avatars src={hasAvatar} />
-          <UploadPhoto onAvatarChange={onAvatarChange} setNewAvatar={setNewAvatar} />
+          <UploadPhoto onAvatarChange={onAvatarChange!} setNewAvatar={setNewAvatar} />
         </div>
       </div>
-      <div>
-        <EditableSpan
-          name={name}
-          email={email}
-          handleLogout={handleLogout}
-          onValueChange={handleNameChanged}
-        />
-      </div>
+      <EditableSpan
+        name={name}
+        email={email}
+        handleLogout={handleLogout}
+        onValueChange={handleNameChanged}
+      />
     </Card>
   )
 }

@@ -1,7 +1,6 @@
 import { ChangeEvent, KeyboardEvent, useState } from 'react'
 
-import { LogoutSvg } from 'assets/icons'
-import { Redactor } from 'assets/icons/redactor.tsx'
+import { LogoutSvg, Redactor } from 'assets/icons'
 import { Button } from 'ui/button'
 import { TextField } from 'ui/textField'
 import { Typography } from 'ui/typography'
