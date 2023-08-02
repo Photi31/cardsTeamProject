@@ -23,7 +23,7 @@ export const ControlledCheckbox = <T extends FieldValues>({
 
   return (
     <div>
-      <Checkbox checked={value} onChange={handelChange} {...rest} />
+      <Checkbox {...rest} onChange={handelChange} checked={value} />
     </div>
   )
 }

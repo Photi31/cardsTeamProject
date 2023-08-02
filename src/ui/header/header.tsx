@@ -1,7 +1,9 @@
 import { ReactNode } from 'react'
 
-import { Logo } from 'assets/icons'
+import { Logo, LogoutSvg } from 'assets/icons'
+import { Person } from 'assets/icons/person.tsx'
 import { Button } from 'ui/button'
+import { Dropdown, DropdownItem, DropdownItemWithIcon } from 'ui/dropDown/dropdown.tsx'
 import { Avatars as Avatar } from 'ui/userAvatar/avatar.tsx'
 
 import s from './header.module.scss'
@@ -9,10 +11,11 @@ import s from './header.module.scss'
 export type User = {
   name: string
   avatar?: string
+  email: string
 }
 
 interface HeaderProps {
-  user?: User
+  user: User
   onLogin?: () => void
   onLogout?: () => void
   isLogin?: boolean
@@ -27,8 +30,26 @@ export const Header = ({ user, onLogin, children, isLogin }: HeaderProps) => {
       </div>
       {isLogin ? (
         <div className={s.userContainer}>
-          <div className={s.userName}>{user?.name}</div>
-          <Avatar src={user?.avatar}>{children}</Avatar>
+          <Dropdown
+            align={'end'}
+            trigger={
+              <button className={s.button}>
+                <div className={s.userName}>{user?.name}</div>
+                <Avatar src={user?.avatar}>{children}</Avatar>
+              </button>
+            }
+          >
+            <DropdownItem>
+              <DropdownItemWithIcon
+                className={s.containerParagraph}
+                icon={<Avatar src={user?.avatar}>{children}</Avatar>}
+                text={user.name}
+                textForEmail={user.email}
+              />
+            </DropdownItem>
+            <DropdownItemWithIcon icon={<Person />} text="My Profile" />
+            <DropdownItemWithIcon icon={<LogoutSvg />} text="Sign Out" />
+          </Dropdown>
         </div>
       ) : (
         <Button onClick={onLogin}> Sign In </Button>

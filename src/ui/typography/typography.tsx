@@ -14,7 +14,6 @@ type VariantType =
   | 'overline'
   | 'link1'
   | 'link2'
-  | 'error'
 
 type ColorType = 'primary' | 'secondary' | 'inherit' | 'error' | 'link'
 
@@ -24,25 +23,11 @@ export type TypographyProps<T extends ElementType = 'p'> = {
   children?: ReactNode
   className?: string
   color?: ColorType
-  errorMessage?: string
-  showError?: boolean
 } & ComponentPropsWithoutRef<T>
 
 export const Typography = <T extends ElementType = 'p'>(props: TypographyProps<T>) => {
-  const {
-    variant = 'body1',
-    className,
-    as: Component = 'p',
-    color = 'primary',
-    errorMessage,
-    showError = false,
-    ...rest
-  } = props
+  const { variant = 'body1', className, as: Component = 'p', color = 'primary', ...rest } = props
   const clN = `${s[variant]} ${className ?? ''} ${s[color]}`
 
-  return (
-    <Component className={clN} {...rest}>
-      {rest.children}
-    </Component>
-  )
+  return <Component className={clN} {...rest} />
 }
