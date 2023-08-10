@@ -1,5 +1,6 @@
 .profileContainer {
   display: block;
+  margin-top: 100px;
   padding: 33px 33px 41px;
 }
 
@@ -18,8 +19,8 @@
 img {
   width: 96px;
   height: 96px;
-  border-radius: 50%;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .title {

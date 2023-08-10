@@ -1,15 +1,19 @@
 .card {
+  height: 528px;
   padding: 33px 36px 29px;
   text-align: center;
 }
 
 .email {
+  width: 348px;
+  height: 60px;
   margin-top: 27px;
+  margin-bottom: 20px;
+
   text-align: left;
 }
 
-.pass {
-  margin-top: 5px;
+.password {
   text-align: left;
 }
 
@@ -23,5 +27,9 @@
 
 .link {
   margin-top: 11px;
-  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-m);
+  font-weight: var(--font-weight-regular);
 }
+
+
+

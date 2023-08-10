@@ -7,9 +7,10 @@ import s from './check-email.module.scss'
 
 export type CheckEmailType = {
   email: string
+  backToLogin: () => void
 }
 
-export const CheckEmail = ({ email }: CheckEmailType) => {
+export const CheckEmail = ({ email, backToLogin }: CheckEmailType) => {
   const classNames = {
     root: s.root,
     title: s.title,
@@ -28,7 +29,13 @@ export const CheckEmail = ({ email }: CheckEmailType) => {
         We’ve sent an Email with instructions to <br />
         {email}
       </Typography>
-      <Button as="a" variant="primary" fullWidth className={classNames.button}>
+      <Button
+        onClick={backToLogin}
+        as="a"
+        variant="primary"
+        fullWidth
+        className={classNames.button}
+      >
         Back to Sign In
       </Button>
     </Card>

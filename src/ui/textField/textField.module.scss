@@ -58,7 +58,9 @@
 
   &:hover:not(.disabled) {
     background: var(--color-dark-700);
+    caret-color: var(--color-light-100);
   }
+
 
   &.error {
     border-color: var(--color-danger-300);
