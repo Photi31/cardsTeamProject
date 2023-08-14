@@ -5,9 +5,17 @@ import { Mutex } from 'async-mutex'
 import { authApi } from 'services/auth'
 
 const mutex = new Mutex()
+// const baseQuery = fetchBaseQuery({
+//   baseUrl: 'https://api.flashcards.andrii.es/',
+//   credentials: 'include',
+// })
+
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://api.flashcards.andrii.es/',
   credentials: 'include',
+  prepareHeaders: headers => {
+    headers.append('x-short-access-token', 'true')
+  },
 })
 
 export const baseQueryWithReauth: BaseQueryFn<
@@ -35,12 +43,8 @@ export const baseQueryWithReauth: BaseQueryFn<
         if (refreshResult.data) {
           // api.dispatch(tokenReceived(refreshResult.data))
           authApi.util?.invalidateTags(['Me'])
-          console.log(refreshResult.data)
           result = await baseQuery(args, api, extraOptions)
-          console.log(result)
         } else {
-          // api.dispatch(loggedOut())
-          //navigate ('/')
           console.log('logout')
         }
       } finally {

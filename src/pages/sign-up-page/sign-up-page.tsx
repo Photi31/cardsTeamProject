@@ -22,7 +22,7 @@ export const SignUpPage = () => {
 
   return (
     <div>
-      <SignUp onSubmit={onSubmit} signInHref={'http://localhost:5173/login'} />
+      <SignUp onSubmit={onSubmit} signInHref={'/login'} />
     </div>
   )
 }

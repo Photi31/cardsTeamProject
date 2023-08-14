@@ -1,12 +1,16 @@
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { LoginForm } from 'components/auth/login-form'
-import { useLoginMutation } from 'services/auth'
+import { useLoginMutation, useMeQuery } from 'services/auth'
 
 export const SignInPage = () => {
-  const navigate = useNavigate()
+  const { data, isLoading } = useMeQuery()
   const [login] = useLoginMutation()
+  const navigate = useNavigate()
+
+  if (isLoading) return <div>Loading...</div>
+  if (data) return <Navigate to={'/profile'} />
 
   const handleLogin = (args: { email: string; password: string }) => {
     return login(args)
@@ -19,12 +23,6 @@ export const SignInPage = () => {
   }
 
   return (
-    <>
-      <LoginForm
-        onSubmit={handleLogin}
-        forgotHref={'http://localhost:5173/forgot-password'}
-        signUpHref={'http://localhost:5173/register'}
-      />
-    </>
+    <LoginForm onSubmit={handleLogin} forgotHref={'/forgot-password'} signUpHref={'/register'} />
   )
 }

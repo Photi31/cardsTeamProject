@@ -16,9 +16,5 @@ export const CreateNewPasswordPage = () => {
         navigate('/sign-in')
       })
 
-  return (
-    <>
-      <CreateNewPassword onSubmit={onSubmit} />
-    </>
-  )
+  return <CreateNewPassword onSubmit={onSubmit} />
 }

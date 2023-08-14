@@ -16,7 +16,7 @@ export const Layout = () => {
       .catch(err => toast.error(err.data.message))
   }
   const log = () => {
-    navigate('/profile')
+    navigate('/sign-in')
   }
 
   return (

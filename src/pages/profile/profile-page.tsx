@@ -16,9 +16,5 @@ export const ProfilePage = () => {
       .catch(err => toast.error(err.data.message))
   }
 
-  return (
-    <>
-      <PersonalInformation email={data!.email} name={data!.name} onLogout={handleLogout} />
-    </>
-  )
+  return <PersonalInformation email={data!.email} name={data!.name} onLogout={handleLogout} />
 }

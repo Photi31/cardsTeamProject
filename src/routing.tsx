@@ -12,9 +12,11 @@ import { useMeQuery } from 'services/auth'
 const PrivateRoutes = () => {
   const { data, isLoading } = useMeQuery()
 
-  if (isLoading) return <div>Loading...</div>
+  if (data) if (isLoading) return <div>Loading...</div>
 
-  return data ? <Outlet /> : <Navigate to={'/sign-in'} />
+  const isAuthenticated = !!data
+
+  return isAuthenticated ? <Outlet /> : <Navigate to={'/sign-in'} />
 }
 
 export const router = createBrowserRouter([

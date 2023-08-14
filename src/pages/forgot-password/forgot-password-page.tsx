@@ -15,9 +15,5 @@ export const ForgotPasswordPage = () => {
         navigate(`/check-email?email=${data.email}`)
       })
 
-  return (
-    <>
-      <ForgotPassword onSubmit={onSubmit} tryLoggingHref={'http://localhost:5173/login'} />
-    </>
-  )
+  return <ForgotPassword onSubmit={onSubmit} tryLoggingHref={'/login'} />
 }
