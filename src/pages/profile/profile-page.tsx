@@ -1,20 +1,43 @@
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import { ProgressLine } from 'assets/loaders'
 import { PersonalInformation } from 'components/profile'
-import { useLogoutMutation, useMeQuery } from 'services/auth'
+import { useChangeProfileMutation, useLogoutMutation, useMeQuery } from 'services/auth'
 
 export const ProfilePage = () => {
   const navigate = useNavigate()
-  const { data } = useMeQuery()
+  const { data, isLoading } = useMeQuery()
   const [logout] = useLogoutMutation()
+  const [changeProfile] = useChangeProfileMutation()
 
+  if (isLoading) return <ProgressLine />
   const handleLogout = () => {
     return logout()
       .unwrap()
-      .then(() => navigate('/sign-in'))
+      .then(() => navigate('/login'))
       .catch(err => toast.error(err.data.message))
   }
 
-  return <PersonalInformation email={data!.email} name={data!.name} onLogout={handleLogout} />
+  const handleChangeName = (name: string) => {
+    return changeProfile({ name })
+  }
+
+  const handleChangeAvatar = (avatar: string) => {
+    const form = new FormData()
+
+    form.append('avatar', data?.avatar ?? '')
+
+    return changeProfile({ avatar })
+  }
+
+  return (
+    <PersonalInformation
+      onNameChange={handleChangeName}
+      email={data!.email}
+      name={data!.name}
+      onLogout={handleLogout}
+      onAvatarChange={handleChangeAvatar}
+    />
+  )
 }

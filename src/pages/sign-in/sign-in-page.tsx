@@ -1,22 +1,24 @@
 import { Navigate, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { LoginForm } from 'components/auth/login-form'
+import { ProgressLine } from 'assets/loaders/progress-line/progress-line.tsx'
+import { LoginForm, LoginFormType } from 'components/auth/login-form'
 import { useLoginMutation, useMeQuery } from 'services/auth'
 
 export const SignInPage = () => {
-  const { data, isLoading } = useMeQuery()
+  const { data, error, isLoading } = useMeQuery()
   const [login] = useLoginMutation()
   const navigate = useNavigate()
 
-  if (isLoading) return <div>Loading...</div>
-  if (data) return <Navigate to={'/profile'} />
+  console.log(error)
 
-  const handleLogin = (args: { email: string; password: string }) => {
+  if (data) return <Navigate to={'/profile'} />
+  if (isLoading) return <ProgressLine />
+  const handleLogin = (args: LoginFormType) => {
     return login(args)
       .unwrap()
       .then(() => {
-        toast.error('Вы успешно залогинились')
+        toast.success('Вы успешно залогинились')
         navigate('/profile')
       })
       .catch(err => toast.error(err.data.message))

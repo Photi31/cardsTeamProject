@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { SignUp } from 'components/auth/sign-up'
+import { FormWithoutConfirm, SignUp } from 'components/auth/sign-up'
 import { useRegisterMutation } from 'services/auth'
-import { RegisterType } from 'services/auth/type.ts'
 
 export const SignUpPage = () => {
   const navigate = useNavigate()
@@ -11,7 +10,7 @@ export const SignUpPage = () => {
 
   console.log(result)
 
-  const onSubmit = (data: RegisterType) =>
+  const onSubmit = (data: FormWithoutConfirm) =>
     registration(data)
       .unwrap()
       .then(() => {

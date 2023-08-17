@@ -25,3 +25,9 @@ export type CreateNewPasswordType = {
   token?: string
   password: string
 }
+
+export type ArgChangeProfile = {
+  name?: string
+  avatar?: string
+  email?: string
+}

@@ -16,21 +16,26 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => {
     const [name, setName] = useState('Ivan')
+    const [newAvatar, setNewAvatar] = useState<string | undefined>(
+      'https://sun9-2.userapi.com/impg/VeSbeev8_WQ8y4LGDdY1NcnvCNP_N5SatvHTUA/x9MdiRS1oKQ.jpg?size=200x200&quality=96&sign=3ef6f497a6419e576f033d6684b8afee&type=album'
+    )
 
     const handleNameChange = (newName: string) => {
       setName(newName)
+    }
+    const handleAvatarChange = (newAvatar: string) => {
+      setNewAvatar(newAvatar)
     }
 
     return (
       <>
         <PersonalInformation
-          onAvatarChange={() => {}}
+          onAvatarChange={handleAvatarChange}
           email={'j&johnson@gmail.com'}
           name={name}
           onNameChange={handleNameChange}
-          avatar={
-            'https://sun9-2.userapi.com/impg/VeSbeev8_WQ8y4LGDdY1NcnvCNP_N5SatvHTUA/x9MdiRS1oKQ.jpg?size=200x200&quality=96&sign=3ef6f497a6419e576f033d6684b8afee&type=album'
-          }
+          avatar={newAvatar}
+          onLogout={() => {}}
         />
       </>
     )

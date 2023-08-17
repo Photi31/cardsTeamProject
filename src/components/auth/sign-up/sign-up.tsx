@@ -32,7 +32,7 @@ const schema = z
   })
 
 type Form = z.infer<typeof schema>
-type FormWithoutConfirm = Omit<Form, 'confirmPassword'>
+export type FormWithoutConfirm = Omit<Form, 'confirmPassword'>
 
 type Props = {
   onSubmit: (data: FormWithoutConfirm) => void

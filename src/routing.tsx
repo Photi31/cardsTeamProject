@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 
+import { Loader } from 'assets/loaders/loader/loader.tsx'
 import { Layout } from 'components/layout'
 import { CheckEmailPage } from 'pages/check-email'
 import { CreateNewPasswordPage } from 'pages/create-new-password'
@@ -12,11 +13,11 @@ import { useMeQuery } from 'services/auth'
 const PrivateRoutes = () => {
   const { data, isLoading } = useMeQuery()
 
-  if (data) if (isLoading) return <div>Loading...</div>
+  if (isLoading) return <Loader />
 
   const isAuthenticated = !!data
 
-  return isAuthenticated ? <Outlet /> : <Navigate to={'/sign-in'} />
+  return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }
 
 export const router = createBrowserRouter([
@@ -25,7 +26,7 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/sign-in',
+        path: '/login',
         element: <SignInPage />,
       },
       {

@@ -6,11 +6,11 @@ import { Button } from 'ui/button'
 import s from './upload-photo.module.scss'
 
 type Props = {
-  onAvatarChange: (newAvatar: File) => void
-  setNewAvatar: (url: string) => void
+  onAvatarChange: (newAvatar: string) => void
+  // setNewAvatar: (url: string) => void
 }
 
-export const UploadPhoto = ({ onAvatarChange, setNewAvatar }: Props) => {
+export const UploadPhoto = ({ onAvatarChange }: Props) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleAvatarSelected = (event: ChangeEvent<HTMLInputElement>) => {
@@ -22,23 +22,21 @@ export const UploadPhoto = ({ onAvatarChange, setNewAvatar }: Props) => {
       reader.onload = () => {
         const result = reader.result as string
 
-        setNewAvatar(result)
-        if (onAvatarChange) {
-          onAvatarChange(file)
-        }
+        onAvatarChange(result)
+        // setNewAvatar(result)
       }
 
       reader.readAsDataURL(file)
     }
   }
 
-  const onClickChangeAvaHandler = () => {
+  const onClickChangeAvatarHandler = () => {
     fileInputRef.current?.click()
   }
 
   return (
     <Button variant="secondary" className={s.editAvatarButton}>
-      <ChangePhoto onClick={onClickChangeAvaHandler} />
+      <ChangePhoto onClick={onClickChangeAvatarHandler} />
       <input
         ref={fileInputRef}
         type="file"

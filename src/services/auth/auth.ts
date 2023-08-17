@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { ResetPasswordMessage } from 'assets/email-messages/reset-password-message.ts'
 import {
+  ArgChangeProfile,
   CreateNewPasswordType,
   ForgotPasswordType,
   RegisterType,
@@ -24,6 +25,17 @@ export const authApi = createApi({
       query: body => ({
         url: 'v1/auth/login',
         method: 'POST',
+        body,
+      }),
+      extraOptions: {
+        maxRetries: 0,
+      },
+      invalidatesTags: ['Me'],
+    }),
+    changeProfile: build.mutation<any, ArgChangeProfile>({
+      query: body => ({
+        url: 'v1/auth/me',
+        method: 'PATCH',
         body,
       }),
       invalidatesTags: ['Me'],
@@ -86,4 +98,5 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useCreateNewPasswordMutation,
+  useChangeProfileMutation,
 } = authApi

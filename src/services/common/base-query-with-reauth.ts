@@ -1,8 +1,6 @@
-import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
-
-import { authApi } from 'services/auth'
 
 const mutex = new Mutex()
 // const baseQuery = fetchBaseQuery({
@@ -41,8 +39,6 @@ export const baseQueryWithReauth: BaseQueryFn<
         )
 
         if (refreshResult.data) {
-          // api.dispatch(tokenReceived(refreshResult.data))
-          authApi.util?.invalidateTags(['Me'])
           result = await baseQuery(args, api, extraOptions)
         } else {
           console.log('logout')

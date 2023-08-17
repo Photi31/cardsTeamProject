@@ -1,14 +1,13 @@
 import { useNavigate } from 'react-router-dom'
 
-import { ForgotPassword } from 'components/auth/forgot-password'
+import { ForgotPassword, ForgotPasswordFormType } from 'components/auth/forgot-password'
 import { useForgotPasswordMutation } from 'services/auth'
-import { ForgotPasswordType } from 'services/auth/type.ts'
 
 export const ForgotPasswordPage = () => {
   const navigate = useNavigate()
   const [forgotPassword] = useForgotPasswordMutation()
 
-  const onSubmit = (data: ForgotPasswordType) =>
+  const onSubmit = (data: ForgotPasswordFormType) =>
     forgotPassword(data)
       .unwrap()
       .then(() => {

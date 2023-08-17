@@ -8,7 +8,7 @@ export const CheckEmailPage = () => {
   const email = searchParams.get('email')
 
   const backToLogin = () => {
-    navigate('/sign-in')
+    navigate('/login')
   }
 
   return (

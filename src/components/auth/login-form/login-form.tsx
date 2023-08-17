@@ -26,16 +26,16 @@ const schema = z.object({
     .min(3, 'SignInPage must be at least 3 characters'),
 })
 
-export type FormType = z.infer<typeof schema>
+export type LoginFormType = z.infer<typeof schema>
 
 type Props = {
   forgotHref?: string
   signUpHref?: string
-  onSubmit?: (data: FormType) => void
+  onSubmit?: (data: LoginFormType) => void
 }
 
 export const LoginForm = ({ onSubmit, forgotHref, signUpHref }: Props) => {
-  const { control, handleSubmit } = useForm<FormType>({
+  const { control, handleSubmit } = useForm<LoginFormType>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
     defaultValues: {
