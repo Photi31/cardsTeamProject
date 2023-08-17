@@ -6,8 +6,7 @@ import { Button } from 'ui/button'
 import s from './upload-photo.module.scss'
 
 type Props = {
-  onAvatarChange: (newAvatar: string) => void
-  // setNewAvatar: (url: string) => void
+  onAvatarChange: (newAvatar: File) => void
 }
 
 export const UploadPhoto = ({ onAvatarChange }: Props) => {
@@ -17,16 +16,7 @@ export const UploadPhoto = ({ onAvatarChange }: Props) => {
     const file = event.target.files?.[0]
 
     if (file) {
-      const reader = new FileReader()
-
-      reader.onload = () => {
-        const result = reader.result as string
-
-        onAvatarChange(result)
-        // setNewAvatar(result)
-      }
-
-      reader.readAsDataURL(file)
+      onAvatarChange(file)
     }
   }
 

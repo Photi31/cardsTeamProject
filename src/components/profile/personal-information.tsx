@@ -12,7 +12,7 @@ type Props = {
   avatar?: string
   name: string
   onLogout: () => void
-  onAvatarChange: (newAvatar: string) => void
+  onAvatarChange: (newAvatar: File) => void
   onNameChange: (newName: string) => void
 }
 
@@ -27,7 +27,7 @@ export const PersonalInformation = ({
   // const [newAvatar, setNewAvatar] = useState<string | undefined>(avatar)
   const handleNameChanged = (name: string) => onNameChange(name)
 
-  const handleAvatarChange = (newAvatar: string) => onAvatarChange(newAvatar)
+  const handleAvatarChange = (newAvatar: File) => onAvatarChange(newAvatar)
 
   const handleLogout = () => onLogout()
 

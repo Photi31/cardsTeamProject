@@ -20,15 +20,17 @@ export const ProfilePage = () => {
   }
 
   const handleChangeName = (name: string) => {
-    return changeProfile({ name })
-  }
-
-  const handleChangeAvatar = (avatar: string) => {
     const form = new FormData()
 
-    form.append('avatar', data?.avatar ?? '')
+    form.append('name', name)
+    changeProfile(form)
+  }
 
-    return changeProfile({ avatar })
+  const handleChangeAvatar = (avatar: File) => {
+    const form = new FormData()
+
+    form.append('avatar', avatar)
+    changeProfile(form)
   }
 
   return (

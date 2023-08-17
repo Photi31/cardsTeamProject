@@ -28,6 +28,6 @@ export type CreateNewPasswordType = {
 
 export type ArgChangeProfile = {
   name?: string
-  avatar?: string
+  avatar?: File
   email?: string
 }
