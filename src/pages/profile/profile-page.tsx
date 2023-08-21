@@ -24,13 +24,20 @@ export const ProfilePage = () => {
 
     form.append('name', name)
     changeProfile(form)
+      .unwrap()
+      .then(() => {
+        toast.success('Name changed')
+      })
+      .catch(err => {
+        toast.error(err.data.message)
+      })
   }
 
   const handleChangeAvatar = (avatar: File) => {
     const form = new FormData()
 
     form.append('avatar', avatar)
-    changeProfile(form)
+    changeProfile(form).unwrap().then().catch()
   }
 
   return (
@@ -40,6 +47,7 @@ export const ProfilePage = () => {
       name={data!.name}
       onLogout={handleLogout}
       onAvatarChange={handleChangeAvatar}
+      avatar={data!.avatar}
     />
   )
 }

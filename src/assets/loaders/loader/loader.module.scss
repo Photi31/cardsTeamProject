@@ -8,9 +8,11 @@
   width: 164px;
   height: 164px;
   margin: 0 auto;
+
 }
 
-.loader::before , .loader::after {
+.loader::before ,
+.loader::after {
   content: '';
 
   position: absolute;

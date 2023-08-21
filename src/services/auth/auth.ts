@@ -4,7 +4,10 @@ import { ResetPasswordMessage } from 'assets/email-messages/reset-password-messa
 import {
   CreateNewPasswordType,
   ForgotPasswordType,
+  LoginArgType,
+  LoginResponseType,
   RegisterType,
+  ResponseRegisterType,
   UserType,
 } from 'services/auth/type.ts'
 import { baseQueryWithReauth } from 'services/common/base-query-with-reauth.ts'
@@ -20,7 +23,7 @@ export const authApi = createApi({
       }),
       providesTags: ['Me'],
     }),
-    login: build.mutation<void, { email: string; password: string; rememberMe?: boolean }>({
+    login: build.mutation<LoginResponseType, LoginArgType>({
       query: body => ({
         url: 'v1/auth/login',
         method: 'POST',
@@ -31,7 +34,7 @@ export const authApi = createApi({
       },
       invalidatesTags: ['Me'],
     }),
-    changeProfile: build.mutation<any, FormData>({
+    changeProfile: build.mutation<UserType, FormData>({
       query: body => ({
         url: 'v1/auth/me',
         method: 'PATCH',
@@ -39,14 +42,14 @@ export const authApi = createApi({
       }),
       invalidatesTags: ['Me'],
     }),
-    register: build.mutation<any, RegisterType>({
+    register: build.mutation<ResponseRegisterType, RegisterType>({
       query: body => ({
         url: 'v1/auth/sign-up',
         method: 'POST',
         body,
       }),
     }),
-    forgotPassword: build.mutation<any, ForgotPasswordType>({
+    forgotPassword: build.mutation<void, ForgotPasswordType>({
       query: body => ({
         url: 'v1/auth/recover-password',
         method: 'POST',
@@ -56,7 +59,7 @@ export const authApi = createApi({
         },
       }),
     }),
-    createNewPassword: build.mutation<any, CreateNewPasswordType>({
+    createNewPassword: build.mutation<void, CreateNewPasswordType>({
       query: body => {
         const { token, password } = body
 

@@ -3,7 +3,7 @@ import { Card } from 'ui/card'
 import { EditableSpan } from 'ui/editable-span'
 import { Typography } from 'ui/typography'
 import { UploadPhoto } from 'ui/upload-photo'
-import { Avatars } from 'ui/userAvatar/avatar.tsx'
+import { Avatars as Avatar } from 'ui/userAvatar/avatar.tsx'
 
 import s from './personal-information.module.scss'
 
@@ -24,7 +24,6 @@ export const PersonalInformation = ({
   onNameChange,
   onLogout,
 }: Props) => {
-  // const [newAvatar, setNewAvatar] = useState<string | undefined>(avatar)
   const handleNameChanged = (name: string) => onNameChange(name)
 
   const handleAvatarChange = (newAvatar: File) => onAvatarChange(newAvatar)
@@ -40,7 +39,7 @@ export const PersonalInformation = ({
       </Typography>
       <div className={s.photoContainer}>
         <div>
-          <Avatars src={hasAvatar} />
+          <Avatar src={hasAvatar} />
           <UploadPhoto onAvatarChange={handleAvatarChange} />
         </div>
       </div>

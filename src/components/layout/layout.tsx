@@ -13,8 +13,6 @@ export const Layout = () => {
   const [logout] = useLogoutMutation()
   const [loading, setLoading] = useState(isLoading)
 
-  console.log(loading)
-
   useEffect(() => {
     setLoading(false)
   }, [data])
@@ -29,7 +27,6 @@ export const Layout = () => {
     navigate('/login')
   }
 
-  // if (isLoading) return <Loader />
   if (loading) return <ProgressLine />
 
   return (

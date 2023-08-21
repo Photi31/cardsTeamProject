@@ -3,18 +3,18 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/query'
 import { Mutex } from 'async-mutex'
 
 const mutex = new Mutex()
-// const baseQuery = fetchBaseQuery({
-//   baseUrl: 'https://api.flashcards.andrii.es/',
-//   credentials: 'include',
-// })
-
 const baseQuery = fetchBaseQuery({
   baseUrl: 'https://api.flashcards.andrii.es/',
   credentials: 'include',
-  prepareHeaders: headers => {
-    headers.append('x-short-access-token', 'true')
-  },
 })
+
+// const baseQuery = fetchBaseQuery({
+//   baseUrl: 'https://api.flashcards.andrii.es/',
+//   credentials: 'include',
+//   prepareHeaders: headers => {
+//     headers.append('x-short-access-token', 'true')
+//   },
+// })
 
 export const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,

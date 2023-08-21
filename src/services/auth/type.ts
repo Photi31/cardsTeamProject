@@ -31,3 +31,19 @@ export type ArgChangeProfile = {
   avatar?: File
   email?: string
 }
+
+export type LoginResponseType = {
+  accessToken: string
+}
+
+export type LoginArgType = {
+  email: string
+  password: string
+  rememberMe?: boolean
+}
+
+export type ResponseRegisterType = {
+  id: string
+  name: string
+  email: string
+}
