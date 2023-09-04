@@ -17,20 +17,28 @@ export type User = {
 
 interface HeaderProps {
   user?: User | null
-  onLogin?: () => void
-  onLogout?: () => void
+  onLogin: () => void
+  onLogout: () => void
+  profilePage: () => void
+  defualtPage: () => void
   isLogin?: boolean
   children?: ReactNode
 }
 
-export const Header = ({ user, onLogin, children, isLogin, onLogout }: HeaderProps) => {
+export const Header = ({
+  user,
+  onLogin,
+  children,
+  isLogin,
+  onLogout,
+  profilePage,
+  defualtPage,
+}: HeaderProps) => {
   const hasAvatar = user?.avatar || defaultAva
 
   return (
     <div className={s.header}>
-      <div className={s.logo}>
-        <Logo />
-      </div>
+      <Logo className={s.logo} onClick={defualtPage} style={{ cursor: 'pointer' }} />
       {isLogin ? (
         <div className={s.userContainer}>
           <Dropdown
@@ -50,12 +58,14 @@ export const Header = ({ user, onLogin, children, isLogin, onLogout }: HeaderPro
                 textForEmail={user?.email}
               />
             </DropdownItem>
-            <DropdownItemWithIcon icon={<Person />} text="My ProfilePage" />
+            <DropdownItemWithIcon onClick={profilePage} icon={<Person />} text="My ProfilePage" />
             <DropdownItemWithIcon onClick={onLogout} icon={<LogoutSvg />} text="Sign Out" />
           </Dropdown>
         </div>
       ) : (
-        <Button onClick={onLogin}> Sign In </Button>
+        <Button variant={'primary'} onClick={onLogin}>
+          Sign In
+        </Button>
       )}
     </div>
   )

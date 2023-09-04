@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom'
 
 import { Loader, ProgressLine } from 'assets/loaders'
 import { router } from 'routing.tsx'
-import { useMeQuery } from 'services/auth'
+import { useMeQuery } from 'services/authApi'
 
 export function App() {
   const { isLoading, isUninitialized, data } = useMeQuery()

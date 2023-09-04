@@ -9,7 +9,7 @@ import {
   RegisterType,
   ResponseRegisterType,
   UserType,
-} from 'services/auth/type.ts'
+} from 'services/authApi/type.ts'
 import { baseQueryWithReauth } from 'services/common/base-query-with-reauth.ts'
 
 export const authApi = createApi({
@@ -22,6 +22,9 @@ export const authApi = createApi({
         url: 'v1/auth/me',
       }),
       providesTags: ['Me'],
+      extraOptions: {
+        maxRetries: 0,
+      },
     }),
     login: build.mutation<LoginResponseType, LoginArgType>({
       query: body => ({

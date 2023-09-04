@@ -1,0 +1,30 @@
+
+.buttonContainer {
+  display: flex;
+  justify-content: end;
+
+  & button {
+    padding: 10px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  & button:active {
+    background-color: var(--color-dark-500);
+  }
+}
+
+.packNameContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.coverImage {
+  width: 200px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 0;
+}

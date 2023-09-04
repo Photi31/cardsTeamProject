@@ -41,25 +41,21 @@ export const ForgotPassword = ({ onSubmit, tryLoggingHref }: Props) => {
       <Card className={s.forgotPasswordContainer}>
         <Typography variant="large">Forgot your password?</Typography>
         <div className={s.inputsContainer}>
-          <div className={s.inputs}>
-            <ControlledTextField
-              placeholder={'Enter you email'}
-              label={'Email'}
-              name={'email'}
-              control={control}
-              type="text"
-            />
-          </div>
-          <Typography variant="caption" color="inherit" className={s.instructionsText}>
-            Enter your email address and we will send you further instructions
-          </Typography>
+          <ControlledTextField
+            className={s.inputs}
+            placeholder={'Enter you email'}
+            label={'Email'}
+            name={'email'}
+            control={control}
+            type="text"
+          />
         </div>
-
-        <div className={s.sendInstructionsButton}>
-          <Button type="submit" fullWidth={true}>
-            Send Instructions
-          </Button>
-        </div>
+        <Typography variant="caption" color="inherit" className={s.instructionsText}>
+          Enter your email address and we will send you further instructions
+        </Typography>
+        <Button className={s.sendInstructionsButton} type="submit" fullWidth={true}>
+          Send Instructions
+        </Button>
         <Typography variant="caption" color="inherit" className={s.rememberPassword}>
           Did you remember your password?
         </Typography>

@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 
 import { ProgressLine } from 'assets/loaders'
 import { PersonalInformation } from 'components/profile'
-import { useChangeProfileMutation, useLogoutMutation, useMeQuery } from 'services/auth'
+import { useChangeProfileMutation, useLogoutMutation, useMeQuery } from 'services/authApi'
 
 export const ProfilePage = () => {
   const navigate = useNavigate()

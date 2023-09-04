@@ -5,12 +5,10 @@ import { Typography } from '../typography'
 
 import s from './tabSwitcher.module.scss'
 
-export type TabSwitcherList = string[]
-
 export type TabSwitcherType = {
   className?: string
   disabled?: boolean
-  list: TabSwitcherList
+  list: string[]
   title?: string
   defaultValue?: string
   onValueChange: (value: string) => void
@@ -32,7 +30,7 @@ export const TabSwitcher = (props: TabSwitcherType) => {
 
   return (
     <div className={classNames.container}>
-      <Typography variant="body2" className={s.title}>
+      <Typography variant="body1" className={s.label}>
         {title}
       </Typography>
       <Tabs.Root
