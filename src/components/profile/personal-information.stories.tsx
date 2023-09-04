@@ -19,16 +19,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: () => {
     const [name, setName] = useState('Ivan')
-    const [newFile, setNewFile] = useState<File>()
-    const [newAvatar, setNewAvatar] = useState<string>('')
-
-    const handleNameChange = (newName: string) => {
-      setName(newName)
-    }
-
-    const handleAvatarChange = (newFile: File) => {
-      setNewFile(newFile)
-    }
+    const [newAvatar, setNewAvatar] = useState<string>(defaultAva)
 
     const reader = new FileReader()
 
@@ -38,8 +29,14 @@ export const Default: Story = {
       setNewAvatar(result)
     }
 
-    if (newFile) {
-      reader.readAsDataURL(newFile)
+    const handleNameChange = (newName: string) => {
+      setName(newName)
+    }
+
+    const handleAvatarChange = (newFile: File) => {
+      if (newFile) {
+        reader.readAsDataURL(newFile)
+      }
     }
 
     return (
@@ -48,7 +45,7 @@ export const Default: Story = {
         email={'j&johnson@gmail.com'}
         name={name}
         onNameChange={handleNameChange}
-        avatar={newAvatar || defaultAva}
+        avatar={newAvatar}
         onLogout={() => {}}
       />
     )
