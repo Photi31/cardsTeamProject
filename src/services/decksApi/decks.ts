@@ -1,7 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
 import { baseQueryWithReauth } from 'services/common/base-query-with-reauth.ts'
-import { DecksType } from 'services/decksApi/type.ts'
+import {
+  CreateDecksArgType,
+  DecksType,
+  DeleteDecksArgType,
+  ItemType,
+} from 'services/decksApi/type.ts'
 
 export const decksApi = createApi({
   reducerPath: 'decksApi',
@@ -11,10 +16,31 @@ export const decksApi = createApi({
     getDecks: build.query<DecksType | null, void>({
       query: () => ({
         url: 'v1/decks',
+        method: 'GET',
       }),
       providesTags: ['Decks'],
+    }),
+    createDecks: build.mutation<ItemType, CreateDecksArgType>({
+      query: body => ({
+        url: 'v1/decks',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Decks'],
+    }),
+    deleteDecks: build.mutation<ItemType, DeleteDecksArgType>({
+      query: body => {
+        const { id } = body
+
+        return {
+          url: `v1/decks/${id}`,
+          method: 'DELETE',
+          body,
+        }
+      },
+      invalidatesTags: ['Decks'],
     }),
   }),
 })
 
-export const { useGetDecksQuery } = decksApi
+export const { useGetDecksQuery, useDeleteDecksMutation, useCreateDecksMutation } = decksApi

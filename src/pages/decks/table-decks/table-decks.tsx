@@ -1,11 +1,13 @@
 import { useMemo, useState } from 'react'
 
-import { Delete, Play, Redactor } from 'assets/icons'
+import { Play, Redactor } from 'assets/icons'
+import { DeletePack } from 'pages/decks/delete-pack'
+import s from 'pages/decks/table-decks/table-decks.module.scss'
+import { useMeQuery } from 'services/authApi'
+import { UserType } from 'services/authApi/type.ts'
 import { useGetDecksQuery } from 'services/decksApi'
 import { Button } from 'ui/button'
 import { Sort, Table } from 'ui/tables'
-
-import s from './tableDecks.module.scss'
 
 type ConfigType = {
   title: string
@@ -15,6 +17,7 @@ type ConfigType = {
 
 export const TableDecks = () => {
   const { data } = useGetDecksQuery()
+  const { data: meData } = useMeQuery<{ data: UserType }>()
   const [sort, setSort] = useState<Sort>(null)
   const sortString: string | null = sort ? `${sort?.key}-${sort?.direction}` : null
 
@@ -41,6 +44,7 @@ export const TableDecks = () => {
     })
   }, [sortString, data])
 
+  // @ts-ignore
   const dataTable = sortedData?.map(el => (
     <Table.Row key={el.id}>
       <Table.Cell>
@@ -60,9 +64,7 @@ export const TableDecks = () => {
           <Button variant="link">
             <Redactor />
           </Button>
-          <Button variant="link">
-            <Delete />
-          </Button>
+          {el.author.id === meData?.id && <DeletePack id={el.id} name={el.name} />}
         </div>
       </Table.Cell>
     </Table.Row>

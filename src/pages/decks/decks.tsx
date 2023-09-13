@@ -1,5 +1,5 @@
 import { Delete } from 'assets/icons'
-import { TableDecks } from 'pages/decks/tableDecks/tableDecks.tsx'
+import { CreateNewPack } from 'pages/decks/create-new-pack'
 import { useGetDecksQuery } from 'services/decksApi'
 import { Button } from 'ui/button'
 import { Pagination } from 'ui/pagination'
@@ -10,6 +10,7 @@ import { TextField } from 'ui/textField'
 import { Typography } from 'ui/typography'
 
 import s from './decks.module.scss'
+import { TableDecks } from './table-decks/table-decks'
 
 export const Decks = () => {
   const { data } = useGetDecksQuery()
@@ -18,8 +19,8 @@ export const Decks = () => {
   return (
     <div className={s.decksContainer}>
       <div className={s.pagHeader}>
-        <Typography variant={'large'}> LOL </Typography>
-        <Button>Add New Pack</Button>
+        <Typography variant={'large'}> Packs list </Typography>
+        <CreateNewPack />
       </div>
       <div className={s.instrumentContainer}>
         <TextField className={s.searchInput} type={'search'} placeholder={`search pack`} />
@@ -44,15 +45,15 @@ export const Decks = () => {
       <div className={s.paginationContainer}>
         <Pagination
           onPageChange={() => {}}
-          currentPage={data?.pagination.currentPage as number}
+          currentPage={data?.pagination.currentPage!}
           pageSize={10}
-          totalCount={data?.pagination.totalItems as number}
+          totalCount={data?.pagination.totalItems!}
         />
         <div className={s.selectForCard}>
           Показать
           <Select
-            defaultValue={'10'}
             style={{ width: '50px' }}
+            defaultValue={'10'}
             values={['10', '20', '30', '40', '50']}
             variant={'body2'}
           />

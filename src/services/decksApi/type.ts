@@ -4,7 +4,7 @@ export type DecksType = {
   maxCardsCount: number
 }
 
-type ItemType = {
+export type ItemType = {
   author: AuthorType
   id: string
   userId: string
@@ -29,3 +29,6 @@ type PaginationType = {
   totalPages: number
   totalItems: number
 }
+
+export type CreateDecksArgType = Partial<Pick<ItemType, 'name' | 'isPrivate' | 'cover'>>
+export type DeleteDecksArgType = Pick<ItemType, 'id'>

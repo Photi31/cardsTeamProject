@@ -11,7 +11,7 @@ export const SignInPage = () => {
   const [login] = useLoginMutation()
 
   if (isLoading) return <ProgressLine />
-  if (data) return <Navigate to={'/decks'} />
+  if (data && !('success' in data)) return <Navigate to={'/decks'} />
   const handleLogin = (args: LoginFormType) => {
     return login(args)
       .unwrap()

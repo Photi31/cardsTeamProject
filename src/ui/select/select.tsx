@@ -55,7 +55,7 @@ export const Select = (props: Props & Omit<RadixSelect.SelectProps, keyof Props>
           <ArrowDown className={clsx(s.icon, disabledClass)} />
         </RadixSelect.Trigger>
         <RadixSelect.Portal className={s.portal}>
-          <RadixSelect.Content className={s.content} position="popper" avoidCollisions={false}>
+          <RadixSelect.Content className={s.content} position="popper" avoidCollisions={true}>
             <RadixSelect.Viewport>{items}</RadixSelect.Viewport>
           </RadixSelect.Content>
         </RadixSelect.Portal>

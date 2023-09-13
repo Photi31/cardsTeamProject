@@ -43,11 +43,11 @@ export const ProfilePage = () => {
   return (
     <PersonalInformation
       onNameChange={handleChangeName}
-      email={data!.email}
-      name={data!.name}
+      email={data && !('success' in data) ? data.email : null}
+      name={data && !('success' in data) ? data.name : null}
       onLogout={handleLogout}
       onAvatarChange={handleChangeAvatar}
-      avatar={data!.avatar}
+      avatar={data && !('success' in data) ? data.avatar : null}
     />
   )
 }

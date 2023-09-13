@@ -17,14 +17,21 @@ export const authApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Me'],
   endpoints: build => ({
-    me: build.query<UserType | null, void>({
-      query: () => ({
-        url: 'v1/auth/me',
-      }),
-      providesTags: ['Me'],
-      extraOptions: {
-        maxRetries: 0,
+    me: build.query<UserType | null | { success: boolean }, void>({
+      async queryFn(_arg, _api, _extraOptions, baseQuery) {
+        const result = await baseQuery({
+          url: 'v1/auth/me',
+          method: 'GET',
+        })
+
+        if (result.error) {
+          return { data: { success: false } }
+        }
+
+        return { data: result.data } as { data: UserType }
       },
+
+      providesTags: ['Me'],
     }),
     login: build.mutation<LoginResponseType, LoginArgType>({
       query: body => ({

@@ -36,14 +36,14 @@ export const Layout = () => {
     navigate('/decks')
   }
 
-  // if (isLoading) return <Loader />
+  if (isLoading) return <Loader />
 
   return (
     <>
       <Header
         profilePage={profilePage}
-        user={data}
-        isLogin={!!data}
+        user={data && !('success' in data) ? data : null}
+        isLogin={!!data && !('success' in data)}
         onLogin={login}
         onLogout={handleLogout}
         defualtPage={defualtPage}

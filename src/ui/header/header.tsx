@@ -15,7 +15,7 @@ export type User = {
   email: string
 }
 
-interface HeaderProps {
+type HeaderProps = {
   user?: User | null
   onLogin: () => void
   onLogout: () => void

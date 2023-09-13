@@ -16,7 +16,7 @@ const PrivateRoutes = () => {
 
   if (isLoading) return <Loader />
 
-  const isAuthenticated = !!data
+  const isAuthenticated = !!data && !('success' in data)
 
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }
