@@ -30,5 +30,9 @@ type PaginationType = {
   totalItems: number
 }
 
-export type CreateDecksArgType = Partial<Pick<ItemType, 'name' | 'isPrivate' | 'cover'>>
+export type CreateDecksArgType = Pick<ItemType, 'name' | 'isPrivate' | 'cover'>
 export type DeleteDecksArgType = Pick<ItemType, 'id'>
+export type UpdateDecksArgType = {
+  id: string
+  body?: FormData
+} & Partial<Pick<ItemType, 'name' | 'isPrivate' | 'cover'>>

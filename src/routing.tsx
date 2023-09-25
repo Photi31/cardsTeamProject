@@ -2,13 +2,13 @@ import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 
 import { Loader } from 'assets/loaders/loader/loader.tsx'
 import { Layout } from 'components/layout'
-import { CheckEmailPage } from 'pages/check-email'
-import { CreateNewPasswordPage } from 'pages/create-new-password'
+import { CheckEmailPage } from 'pages/auth/check-email'
+import { CreateNewPasswordPage } from 'pages/auth/create-new-password'
+import { ForgotPasswordPage } from 'pages/auth/forgot-password'
+import { SignInPage } from 'pages/auth/sign-in'
+import { SignUpPage } from 'pages/auth/sign-up'
 import { Decks } from 'pages/decks'
-import { ForgotPasswordPage } from 'pages/forgot-password'
 import { ProfilePage } from 'pages/profile'
-import { SignInPage } from 'pages/sign-in'
-import { SignUpPage } from 'pages/sign-up'
 import { useMeQuery } from 'services/authApi'
 
 const PrivateRoutes = () => {

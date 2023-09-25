@@ -9,6 +9,8 @@ import { Button } from 'ui/button'
 import { Modal } from 'ui/modal'
 import { Typography } from 'ui/typography'
 
+import s from './delete-pack.module.scss'
+
 type Props = {
   id: string
   name: string
@@ -38,12 +40,12 @@ export const DeletePack = ({ id, name }: Props) => {
         <Delete />
       </Button>
       <Modal title={'Delete Pack'} open={modalMod} onClose={deletePackModal}>
-        <div style={{ display: 'flex', gap: '4px' }}>
+        <div className={s.descriptionContainer}>
           <Typography variant="body1">Do you really want to remove pack</Typography>
           <Typography variant={'subtitle1'}> {name} </Typography>?
-        </div>{' '}
+        </div>
         All cards will be deleted.
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}>
+        <div className={s.buttonContainer}>
           <Button variant={'secondary'} onClick={deletePackModal}>
             Cancel
           </Button>

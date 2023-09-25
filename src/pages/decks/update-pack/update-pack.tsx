@@ -2,36 +2,42 @@ import { ChangeEvent, useState } from 'react'
 
 import { toast } from 'react-toastify'
 
+import { Redactor } from 'assets/icons'
 import s from 'pages/decks/create-new-pack/create-new-pack.module.scss'
-import { useCreateDecksMutation } from 'services/decksApi'
-import { CreateDecksArgType } from 'services/decksApi/type.ts'
+import { useUpdateDecksMutation } from 'services/decksApi'
+import { UpdateDecksArgType } from 'services/decksApi/type.ts'
 import { Button } from 'ui/button'
 import { Checkbox } from 'ui/checkBox'
 import { Modal } from 'ui/modal'
 import { TextField } from 'ui/textField'
 
-export const CreateNewPack = () => {
-  const [createDecks] = useCreateDecksMutation()
+type Props = {
+  id: string
+  name: string
+  isPrivate: boolean
+}
+
+export const UpdatePack = ({ id, name, isPrivate }: Props) => {
+  const [updatePack] = useUpdateDecksMutation()
   const [modalMod, setModalMode] = useState<boolean>(false)
-  const [checked, setChecked] = useState<boolean>(false)
-  const [newName, setNewName] = useState<string>('')
-  const onCreateDecks = (arg: CreateDecksArgType) => {
+  const [checked, setChecked] = useState<boolean>(isPrivate)
+  const [newName, setNewName] = useState<string>(name)
+
+  const onUpdatePack = (arg: UpdateDecksArgType) => {
     const form = new FormData()
 
-    form.append('name', arg.name)
+    form.append('name', arg.name!)
     form.append('isPrivate', String(arg.isPrivate))
-    // form.append('cover', arg.cover[0]!)
 
-    createDecks(form)
+    updatePack({ id: arg.id, body: arg.body })
       .unwrap()
       .then(() => {
         setModalMode(false)
-        setChecked(false)
         setNewName('')
         toast.success('Успешно добавлено')
       })
       .catch(err => {
-        toast.error(err.data.field)
+        toast.error(err.data.errorMessages[0].message)
       })
   }
 
@@ -49,19 +55,16 @@ export const CreateNewPack = () => {
 
   return (
     <>
-      <Button onClick={createPackModal}>Add New Pack</Button>
-      <Modal
-        showCloseButton={true}
-        title={'Add new pack'}
-        open={modalMod}
-        onClose={createPackModal}
-      >
+      <Button variant="link" onClick={createPackModal}>
+        <Redactor />
+      </Button>
+      <Modal showCloseButton={true} title={'Edit pack'} open={modalMod} onClose={createPackModal}>
         <TextField
           onChange={onChangeName}
           value={newName}
           type={'text'}
-          label={'Name pack'}
-          placeholder={'Create name'}
+          label={'Name Pack'}
+          placeholder={'Create new name'}
         />
         <Checkbox label={'Private pack'} checked={checked} onChange={onClickChecked} />
         <div className={s.buttonContainer}>
@@ -70,9 +73,9 @@ export const CreateNewPack = () => {
           </Button>
           <Button
             variant={'primary'}
-            onClick={() => onCreateDecks({ name: newName, isPrivate: checked, cover: '' })}
+            onClick={() => onUpdatePack({ id, name: newName, isPrivate: isPrivate, cover: '' })}
           >
-            Create pack
+            Save
           </Button>
         </div>
       </Modal>

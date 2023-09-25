@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
 
-import { Play, Redactor } from 'assets/icons'
+import { Play } from 'assets/icons'
 import { DeletePack } from 'pages/decks/delete-pack'
 import s from 'pages/decks/table-decks/table-decks.module.scss'
+import { UpdatePack } from 'pages/decks/update-pack'
 import { useMeQuery } from 'services/authApi'
 import { UserType } from 'services/authApi/type.ts'
 import { useGetDecksQuery } from 'services/decksApi'
@@ -61,9 +62,9 @@ export const TableDecks = () => {
           <Button variant="link">
             <Play />
           </Button>
-          <Button variant="link">
-            <Redactor />
-          </Button>
+          {el.author.id === meData?.id && (
+            <UpdatePack id={el.id} isPrivate={el.isPrivate} name={el.name} />
+          )}
           {el.author.id === meData?.id && <DeletePack id={el.id} name={el.name} />}
         </div>
       </Table.Cell>

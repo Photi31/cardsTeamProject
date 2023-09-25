@@ -37,7 +37,14 @@ export const ProfilePage = () => {
     const form = new FormData()
 
     form.append('avatar', avatar)
-    changeProfile(form).unwrap().then().catch()
+    changeProfile(form)
+      .unwrap()
+      .then(() => {
+        toast.success('Avatar changed')
+      })
+      .catch(err => {
+        toast.error(err.data.message)
+      })
   }
 
   return (
