@@ -32,13 +32,15 @@ const schema = z
   })
 
 type Form = z.infer<typeof schema>
+export type FormWithoutConfirm = Omit<Form, 'confirmPassword'>
 
 type Props = {
-  onSubmit: (data: Form) => void
+  onSubmit: (data: FormWithoutConfirm) => void
+  signInHref?: string
 }
 
 export const SignUp = (props: Props) => {
-  const { onSubmit } = props
+  const { onSubmit, signInHref } = props
 
   const { control, handleSubmit } = useForm<Form>({
     resolver: zodResolver(schema),
@@ -50,35 +52,43 @@ export const SignUp = (props: Props) => {
     },
   })
 
+  const handleSubmitWithOmit = (data: Form) => {
+    const { confirmPassword, ...restData } = data
+
+    onSubmit(restData)
+  }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <>
       <Card className={s.card}>
         <Typography variant="large">Sign Up</Typography>
-        <ControlledTextField name="email" control={control} label="Email" className={s.email} />
-        <ControlledTextField
-          type="password"
-          name="password"
-          control={control}
-          label="Password"
-          className={s.pass}
-        />
-        <ControlledTextField
-          type="password"
-          name="confirmPassword"
-          control={control}
-          label="Confirm Password"
-          className={s.pass}
-        />
-        <Button className={s.button} fullWidth>
-          Sign Up
-        </Button>
+        <form onSubmit={handleSubmit(handleSubmitWithOmit)}>
+          <ControlledTextField name="email" control={control} label="Email" className={s.email} />
+          <ControlledTextField
+            type="password"
+            name="password"
+            control={control}
+            label="Password"
+            className={s.password}
+          />
+          <ControlledTextField
+            type="password"
+            name="confirmPassword"
+            control={control}
+            label="Confirm Password"
+            className={s.password}
+          />
+          <Button className={s.button} fullWidth>
+            Sign Up
+          </Button>
+        </form>
         <Typography variant="body2" className={s.message} color="inherit">
           Already have an account?
         </Typography>
-        <Typography variant="link1" color="secondary" className={s.link}>
+        <Typography variant="link1" color="secondary" className={s.link} as={'a'} href={signInHref}>
           Sign In
         </Typography>
       </Card>
-    </form>
+    </>
   )
 }

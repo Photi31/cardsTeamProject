@@ -1,11 +1,9 @@
-import { useState } from 'react'
-
 import defaultAva from 'assets/icons/defaultAva.png'
 import { Card } from 'ui/card'
 import { EditableSpan } from 'ui/editable-span'
 import { Typography } from 'ui/typography'
 import { UploadPhoto } from 'ui/upload-photo'
-import { Avatars } from 'ui/userAvatar/avatar.tsx'
+import { Avatars as Avatar } from 'ui/userAvatar/avatar.tsx'
 
 import s from './personal-information.module.scss'
 
@@ -13,9 +11,9 @@ type Props = {
   email: string
   avatar?: string
   name: string
-  onLogout?: () => void
-  onAvatarChange?: (newAvatar: File) => void
-  onNameChange?: (newName: string) => void
+  onLogout: () => void
+  onAvatarChange: (newAvatar: File) => void
+  onNameChange: (newName: string) => void
 }
 
 export const PersonalInformation = ({
@@ -26,21 +24,13 @@ export const PersonalInformation = ({
   onNameChange,
   onLogout,
 }: Props) => {
-  const [newAvatar, setNewAvatar] = useState<string | undefined>(avatar)
+  const handleNameChanged = (name: string) => onNameChange(name)
 
-  const handleNameChanged = (name: string) => {
-    if (onNameChange) {
-      onNameChange(name)
-    }
-  }
+  const handleAvatarChange = (newAvatar: File) => onAvatarChange(newAvatar)
 
-  const handleLogout = () => {
-    if (onLogout) {
-      onLogout()
-    }
-  }
+  const handleLogout = () => onLogout()
 
-  const hasAvatar = newAvatar || defaultAva
+  const hasAvatar = avatar || defaultAva
 
   return (
     <Card className={s.profileContainer}>
@@ -49,8 +39,8 @@ export const PersonalInformation = ({
       </Typography>
       <div className={s.photoContainer}>
         <div>
-          <Avatars src={hasAvatar} />
-          <UploadPhoto onAvatarChange={onAvatarChange!} setNewAvatar={setNewAvatar} />
+          <Avatar src={hasAvatar} />
+          <UploadPhoto onAvatarChange={handleAvatarChange} />
         </div>
       </div>
       <EditableSpan

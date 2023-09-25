@@ -17,14 +17,14 @@ const schema = z.object({
     .min(8, 'Password must be at least 8 characters'),
 })
 
-export type FormType = z.infer<typeof schema>
+export type NewPasswordFormType = z.infer<typeof schema>
 
 type Props = {
-  onSubmit?: (data: FormType) => void
+  onSubmit?: (data: NewPasswordFormType) => void
 }
 
 export const CreateNewPassword = ({ onSubmit }: Props) => {
-  const { control, handleSubmit } = useForm<FormType>({
+  const { control, handleSubmit } = useForm<NewPasswordFormType>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
     defaultValues: {

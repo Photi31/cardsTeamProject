@@ -7,38 +7,26 @@ import s from './upload-photo.module.scss'
 
 type Props = {
   onAvatarChange: (newAvatar: File) => void
-  setNewAvatar: (url: string) => void
 }
 
-export const UploadPhoto = ({ onAvatarChange, setNewAvatar }: Props) => {
+export const UploadPhoto = ({ onAvatarChange }: Props) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleAvatarSelected = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
 
     if (file) {
-      const reader = new FileReader()
-
-      reader.onload = () => {
-        const result = reader.result as string
-
-        setNewAvatar(result)
-        if (onAvatarChange) {
-          onAvatarChange(file)
-        }
-      }
-
-      reader.readAsDataURL(file)
+      onAvatarChange(file)
     }
   }
 
-  const onClickChangeAvaHandler = () => {
+  const onClickChangeAvatarHandler = () => {
     fileInputRef.current?.click()
   }
 
   return (
     <Button variant="secondary" className={s.editAvatarButton}>
-      <ChangePhoto onClick={onClickChangeAvaHandler} />
+      <ChangePhoto onClick={onClickChangeAvatarHandler} />
       <input
         ref={fileInputRef}
         type="file"

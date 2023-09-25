@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 
 import { Logo, LogoutSvg } from 'assets/icons'
+import defaultAva from 'assets/icons/defaultAva.png'
 import { Person } from 'assets/icons/person.tsx'
 import { Button } from 'ui/button'
 import { Dropdown, DropdownItem, DropdownItemWithIcon } from 'ui/dropDown/dropdown.tsx'
@@ -15,14 +16,16 @@ export type User = {
 }
 
 interface HeaderProps {
-  user: User
+  user?: User | null
   onLogin?: () => void
   onLogout?: () => void
   isLogin?: boolean
   children?: ReactNode
 }
 
-export const Header = ({ user, onLogin, children, isLogin }: HeaderProps) => {
+export const Header = ({ user, onLogin, children, isLogin, onLogout }: HeaderProps) => {
+  const hasAvatar = user?.avatar || defaultAva
+
   return (
     <div className={s.header}>
       <div className={s.logo}>
@@ -35,20 +38,20 @@ export const Header = ({ user, onLogin, children, isLogin }: HeaderProps) => {
             trigger={
               <button className={s.button}>
                 <div className={s.userName}>{user?.name}</div>
-                <Avatar src={user?.avatar}>{children}</Avatar>
+                <Avatar src={hasAvatar}>{children}</Avatar>
               </button>
             }
           >
             <DropdownItem>
               <DropdownItemWithIcon
                 className={s.containerParagraph}
-                icon={<Avatar src={user?.avatar}>{children}</Avatar>}
-                text={user.name}
-                textForEmail={user.email}
+                icon={<Avatar src={hasAvatar}>{children}</Avatar>}
+                text={user?.name || ''}
+                textForEmail={user?.email}
               />
             </DropdownItem>
-            <DropdownItemWithIcon icon={<Person />} text="My Profile" />
-            <DropdownItemWithIcon icon={<LogoutSvg />} text="Sign Out" />
+            <DropdownItemWithIcon icon={<Person />} text="My ProfilePage" />
+            <DropdownItemWithIcon onClick={onLogout} icon={<LogoutSvg />} text="Sign Out" />
           </Dropdown>
         </div>
       ) : (

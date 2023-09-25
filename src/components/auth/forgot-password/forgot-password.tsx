@@ -15,18 +15,18 @@ const schema = z.object({
     .trim()
     .email('Invalid email address')
     .nonempty('Enter email')
-    .min(3, 'Login must be at least 3 characters'),
+    .min(3, 'SignInPage must be at least 3 characters'),
 })
 
-export type FormType = z.infer<typeof schema>
+export type ForgotPasswordFormType = z.infer<typeof schema>
 
 type Props = {
   tryLoggingHref?: string
-  onSubmit?: (data: FormType) => void
+  onSubmit: (data: ForgotPasswordFormType) => void
 }
 
 export const ForgotPassword = ({ onSubmit, tryLoggingHref }: Props) => {
-  const { control, handleSubmit } = useForm<FormType>({
+  const { control, handleSubmit } = useForm<ForgotPasswordFormType>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
     defaultValues: {

@@ -15,26 +15,27 @@ const schema = z.object({
     .string()
     .trim()
     .nonempty('Enter password')
-    .min(8, 'Password must be at least 8 characters'),
+    .min(3, 'Password must be at least 3 characters')
+    .max(30, 'Password must be at least 30 characters'),
   rememberMe: z.boolean().optional(),
   email: z
     .string()
     .trim()
     .email('Invalid email address')
     .nonempty('Enter email')
-    .min(3, 'Login must be at least 3 characters'),
+    .min(3, 'SignInPage must be at least 3 characters'),
 })
 
-export type FormType = z.infer<typeof schema>
+export type LoginFormType = z.infer<typeof schema>
 
 type Props = {
-  forgoHref?: string
+  forgotHref?: string
   signUpHref?: string
-  onSubmit?: (data: FormType) => void
+  onSubmit?: (data: LoginFormType) => void
 }
 
-export const LoginForm = ({ onSubmit, forgoHref, signUpHref }: Props) => {
-  const { control, handleSubmit } = useForm<FormType>({
+export const LoginForm = ({ onSubmit, forgotHref, signUpHref }: Props) => {
+  const { control, handleSubmit } = useForm<LoginFormType>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
     defaultValues: {
@@ -73,7 +74,7 @@ export const LoginForm = ({ onSubmit, forgoHref, signUpHref }: Props) => {
           </div>
         </div>
         <div className={s.forgotPassword}>
-          <Typography as={'a'} href={forgoHref} variant="body1">
+          <Typography as={'a'} href={forgotHref} variant="body1">
             Forgot Password?
           </Typography>
         </div>

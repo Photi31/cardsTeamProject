@@ -53,12 +53,14 @@ export const EditableSpan = ({ name, onValueChange, email, handleLogout }: Props
     </>
   ) : (
     <>
-      <Typography variant={'h1'} className={s.nameContainer} onDoubleClick={activateEditMode}>
-        {name}
+      <div className={s.nameContainer}>
+        <Typography variant={'h1'} onDoubleClick={activateEditMode}>
+          {name}
+        </Typography>
         <Button variant={'link'} className={s.editNameButton} onClick={activateEditMode}>
           <Redactor />
         </Button>
-      </Typography>
+      </div>
       <Typography variant="body2" className={s.email}>
         {email}
       </Typography>
