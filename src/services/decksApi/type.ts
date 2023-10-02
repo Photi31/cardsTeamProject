@@ -18,6 +18,27 @@ export type ItemType = {
   cardsCount: number
 }
 
+export type CardsType = {
+  pagination: PaginationType
+  items: CardType[]
+}
+
+type CardType = {
+  id: string
+  question: string
+  answer: string
+  deckId: string
+  questionImg?: string
+  answerImg?: string
+  questionVideo?: string
+  answerVideo?: string
+  created: string
+  updated: string
+  shots: number
+  grade: number
+  userId: string
+}
+
 type AuthorType = {
   id: string
   name: string
@@ -28,6 +49,15 @@ type PaginationType = {
   itemsPerPage: number
   totalPages: number
   totalItems: number
+}
+
+export type GetCardsArgType = {
+  deckId?: string
+  question?: string
+  answer?: string
+  orderBy?: string
+  currentPage?: number
+  itemsPerPage?: number
 }
 
 export type CreateDecksArgType = Pick<ItemType, 'name' | 'isPrivate' | 'cover'>
