@@ -1,0 +1,82 @@
+.container {
+  width: 984px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 33px;
+}
+
+.backLink {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.search {
+  margin-top: 27px;
+}
+
+.emptyPage {
+  margin-top: 70px;
+  text-align: center;
+
+  button {
+    margin-top: 30px;
+  }
+}
+
+.table {
+  width: 100%;
+
+  th:nth-child(1) {
+    width: 300px;
+  }
+
+  th:nth-child(2) {
+    width: 300px;
+  }
+
+  th:nth-child(3) {
+    width: 200px;
+  }
+
+  th:nth-child(4) {
+    width: 120px;
+  }
+
+  td {
+    overflow: hidden;
+    max-width: 100px;
+    height: 38px;
+    text-overflow: ellipsis;
+
+    img {
+      max-width: 100px;
+      max-height: 24px;
+      vertical-align: middle;
+      border-radius: 0;
+    }
+  }
+
+  td:nth-child(5) {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+
+    div {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.paginationContainer {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
