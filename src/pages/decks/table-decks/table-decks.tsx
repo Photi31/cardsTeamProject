@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
 
+import { Link } from 'react-router-dom'
+
 import { Play } from 'assets/icons'
 import { DeletePack } from 'pages/decks/delete-pack'
 import s from 'pages/decks/table-decks/table-decks.module.scss'
@@ -49,10 +51,12 @@ export const TableDecks = () => {
   const dataTable = sortedData?.map(el => (
     <Table.Row key={el.id}>
       <Table.Cell>
-        <span className={s.packNameContainer}>
-          {el.cover ? <img src={el.cover} alt="pack avatar" className={s.coverImage} /> : null}
-          {el.name}
-        </span>
+        <div className={s.packNameContainer}>
+          <Link to={`http://localhost:5173/cards/${el.id}`}>
+            {el.cover ? <img src={el.cover} alt="pack avatar" className={s.coverImage} /> : null}
+            {el.name}
+          </Link>
+        </div>
       </Table.Cell>
       <Table.Cell>{el.cardsCount}</Table.Cell>
       <Table.Cell>{new Date(el.updated).toLocaleString()}</Table.Cell>
