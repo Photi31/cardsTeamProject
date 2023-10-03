@@ -152,7 +152,7 @@ export const Cards = () => {
             <Select
               style={{ width: '50px' }}
               defaultValue={itemsPerPage.toString()}
-              values={['1', '5', '10', '20', '30', '40', '50']}
+              values={['1', '5', '10', '20', '30', '50', '100']}
               variant={'body2'}
               onValueChange={handleSelectValueChange}
             />
