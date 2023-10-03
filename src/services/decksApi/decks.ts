@@ -3,6 +3,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReauth } from 'services/common/base-query-with-reauth.ts'
 import {
   CardsType,
+  DecksQueryType,
   DecksType,
   DeleteDecksArgType,
   GetCardsArgType,
@@ -15,10 +16,11 @@ export const decksApi = createApi({
   baseQuery: baseQueryWithReauth,
   tagTypes: ['Decks', 'Cards', 'Deck'],
   endpoints: build => ({
-    getDecks: build.query<DecksType | null, void>({
-      query: () => ({
+    getDecks: build.query<DecksType | null, DecksQueryType>({
+      query: params => ({
         url: 'v1/decks',
         method: 'GET',
+        params,
       }),
       providesTags: ['Decks'],
     }),

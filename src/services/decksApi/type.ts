@@ -51,6 +51,16 @@ type PaginationType = {
   totalItems: number
 }
 
+export type DecksQueryType = {
+  minCardsCount?: string
+  maxCardsCount?: string
+  name?: string
+  authorId?: string
+  orderBy?: string
+  currentPage?: number
+  itemsPerPage?: number
+}
+
 export type GetCardsArgType = {
   deckId?: string
   question?: string
