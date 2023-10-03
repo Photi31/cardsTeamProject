@@ -54,5 +54,6 @@ export const Default: Story = {
   args: {
     email: 'j&johnson@gmail.com',
     name: 'Ivan',
+    avatar: '',
   },
 }

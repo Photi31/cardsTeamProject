@@ -39,24 +39,21 @@ export const CreateNewPassword = ({ onSubmit }: Props) => {
       <Card className={s.forgotPasswordContainer}>
         <Typography variant="large">Create new password</Typography>
         <div className={s.inputsContainer}>
-          <div className={s.inputs}>
-            <ControlledTextField
-              placeholder={'Enter you password'}
-              label={'Password'}
-              name={'password'}
-              control={control}
-              type="password"
-            />
-          </div>
+          <ControlledTextField
+            className={s.inputs}
+            placeholder={'Enter you password'}
+            label={'Password'}
+            name={'password'}
+            control={control}
+            type="password"
+          />
           <Typography variant="caption" color="inherit" className={s.instructionsText}>
             Create new password and we will send you further instructions to email
           </Typography>
         </div>
-        <div className={s.createPasswordButton}>
-          <Button type="submit" fullWidth={true}>
-            Create new password
-          </Button>
-        </div>
+        <Button className={s.createPasswordButton} type="submit" fullWidth={true}>
+          Create new password
+        </Button>
       </Card>
     </form>
   )

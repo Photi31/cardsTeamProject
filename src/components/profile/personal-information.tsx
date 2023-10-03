@@ -8,9 +8,9 @@ import { Avatars as Avatar } from 'ui/userAvatar/avatar.tsx'
 import s from './personal-information.module.scss'
 
 type Props = {
-  email: string
-  avatar?: string
-  name: string
+  email: string | null
+  avatar: string | null
+  name: string | null
   onLogout: () => void
   onAvatarChange: (newAvatar: File) => void
   onNameChange: (newName: string) => void
@@ -44,8 +44,8 @@ export const PersonalInformation = ({
         </div>
       </div>
       <EditableSpan
-        name={name}
-        email={email}
+        name={name!}
+        email={email!}
         handleLogout={handleLogout}
         onValueChange={handleNameChanged}
       />

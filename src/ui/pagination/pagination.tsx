@@ -29,11 +29,11 @@ export const Pagination = (props: Props) => {
     }) || []
 
   const onNext = () => {
-    onPageChange?.(currentPage + 1)
+    onPageChange(currentPage + 1)
   }
 
   const onPrevious = () => {
-    onPageChange?.(currentPage - 1)
+    onPageChange(currentPage - 1)
   }
 
   let lastPage = paginationRange[paginationRange.length - 1]

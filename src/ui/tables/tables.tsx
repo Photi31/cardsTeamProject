@@ -30,8 +30,8 @@ export const Header: FC<
   Omit<
     HeadProps & {
       columns: Column[]
-      sort?: Sort
-      onSort?: (sort: Sort) => void
+      sort: Sort
+      onSort: (sort: Sort) => void
     },
     'children'
   >

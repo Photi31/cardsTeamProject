@@ -4,7 +4,7 @@ import { Mutex } from 'async-mutex'
 
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://api.flashcards.andrii.es/',
+  baseUrl: import.meta.env.VITE_BASE_API_URL,
   credentials: 'include',
 })
 
@@ -38,7 +38,7 @@ export const baseQueryWithReauth: BaseQueryFn<
           extraOptions
         )
 
-        if (refreshResult.data) {
+        if (refreshResult?.meta?.response?.status === 204) {
           result = await baseQuery(args, api, extraOptions)
         } else {
           console.log('logout')

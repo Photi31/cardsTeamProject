@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { ForgotPassword, ForgotPasswordFormType } from 'components/auth/forgot-password'
-import { useForgotPasswordMutation } from 'services/auth'
+import { useForgotPasswordMutation } from 'services/authApi'
 
 export const ForgotPasswordPage = () => {
   const navigate = useNavigate()

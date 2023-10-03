@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { FormWithoutConfirm, SignUp } from 'components/auth/sign-up'
-import { useRegisterMutation } from 'services/auth'
+import { useRegisterMutation } from 'services/authApi'
 
 export const SignUpPage = () => {
   const navigate = useNavigate()
@@ -19,9 +19,5 @@ export const SignUpPage = () => {
       })
       .catch(err => toast.error(err.data.message))
 
-  return (
-    <div>
-      <SignUp onSubmit={onSubmit} signInHref={'/login'} />
-    </div>
-  )
+  return <SignUp onSubmit={onSubmit} signInHref={'/login'} />
 }

@@ -29,8 +29,8 @@ const schema = z.object({
 export type LoginFormType = z.infer<typeof schema>
 
 type Props = {
-  forgotHref?: string
-  signUpHref?: string
+  forgotHref: string
+  signUpHref: string
   onSubmit?: (data: LoginFormType) => void
 }
 
@@ -43,6 +43,26 @@ export const LoginForm = ({ onSubmit, forgotHref, signUpHref }: Props) => {
       password: '',
     },
   })
+
+  // console.log(error)
+  // if (
+  //     error &&
+  //     'status' in error &&
+  //     'data' in error &&
+  //     error.status === 400 &&
+  //     typeof error.data === 'object' &&
+  //     error.data &&
+  //     'errorMessages' in error.data
+  // ) {
+  //   console.log('here')
+  //   // @ts-ignore
+  //   error.data.errorMessages.forEach((errorMessage: any) => {
+  //     setError(errorMessage.field, {
+  //       type: 'custom',
+  //       message: errorMessage.message,
+  //     })
+  //   })
+  // }
 
   const handleFormSubmitted = handleSubmit(onSubmit!)
 
@@ -73,17 +93,12 @@ export const LoginForm = ({ onSubmit, forgotHref, signUpHref }: Props) => {
             </label>
           </div>
         </div>
-        <div className={s.forgotPassword}>
-          <Typography as={'a'} href={forgotHref} variant="body1">
-            Forgot Password?
-          </Typography>
-        </div>
-
-        <div className={s.signInButton}>
-          <Button type="submit" fullWidth={true}>
-            Sign In
-          </Button>
-        </div>
+        <Typography className={s.forgotPassword} as={'a'} href={forgotHref} variant="body1">
+          Forgot Password?
+        </Typography>
+        <Button className={s.signInButton} type="submit" fullWidth={true}>
+          Sign In
+        </Button>
         <Typography variant="caption" color="inherit" className={s.dontHaveAccount}>
           {"Don't have an account?"}
         </Typography>
@@ -100,5 +115,3 @@ export const LoginForm = ({ onSubmit, forgotHref, signUpHref }: Props) => {
     </form>
   )
 }
-
-// - пропсы href для ссылок forgot и sign up

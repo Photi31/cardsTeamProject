@@ -3,7 +3,7 @@ import { toast } from 'react-toastify'
 
 import { ProgressLine } from 'assets/loaders'
 import { PersonalInformation } from 'components/profile'
-import { useChangeProfileMutation, useLogoutMutation, useMeQuery } from 'services/auth'
+import { useChangeProfileMutation, useLogoutMutation, useMeQuery } from 'services/authApi'
 
 export const ProfilePage = () => {
   const navigate = useNavigate()
@@ -37,17 +37,24 @@ export const ProfilePage = () => {
     const form = new FormData()
 
     form.append('avatar', avatar)
-    changeProfile(form).unwrap().then().catch()
+    changeProfile(form)
+      .unwrap()
+      .then(() => {
+        toast.success('Avatar changed')
+      })
+      .catch(err => {
+        toast.error(err.data.message)
+      })
   }
 
   return (
     <PersonalInformation
       onNameChange={handleChangeName}
-      email={data!.email}
-      name={data!.name}
+      email={data && !('success' in data) ? data.email : null}
+      name={data && !('success' in data) ? data.name : null}
       onLogout={handleLogout}
       onAvatarChange={handleChangeAvatar}
-      avatar={data!.avatar}
+      avatar={data && !('success' in data) ? data.avatar : null}
     />
   )
 }

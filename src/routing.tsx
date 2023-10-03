@@ -2,29 +2,34 @@ import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom'
 
 import { Loader } from 'assets/loaders/loader/loader.tsx'
 import { Layout } from 'components/layout'
-import { CheckEmailPage } from 'pages/check-email'
-import { CreateNewPasswordPage } from 'pages/create-new-password'
-import { ForgotPasswordPage } from 'pages/forgot-password'
+import { CheckEmailPage } from 'pages/auth/check-email'
+import { CreateNewPasswordPage } from 'pages/auth/create-new-password'
+import { ForgotPasswordPage } from 'pages/auth/forgot-password'
+import { SignInPage } from 'pages/auth/sign-in'
+import { SignUpPage } from 'pages/auth/sign-up'
+import { Cards } from 'pages/cards'
+import { Decks } from 'pages/decks'
 import { ProfilePage } from 'pages/profile'
-import { SignInPage } from 'pages/sign-in'
-import { SignUpPage } from 'pages/sign-up-page'
-import { useMeQuery } from 'services/auth'
+import { useMeQuery } from 'services/authApi'
 
 const PrivateRoutes = () => {
   const { data, isLoading } = useMeQuery()
 
   if (isLoading) return <Loader />
 
-  const isAuthenticated = !!data
+  const isAuthenticated = !!data && !('success' in data)
 
   return isAuthenticated ? <Outlet /> : <Navigate to={'/login'} />
 }
 
 export const router = createBrowserRouter([
   {
-    path: '/',
     element: <Layout />,
     children: [
+      {
+        path: '/',
+        element: <Navigate to={'/decks'} />,
+      },
       {
         path: '/login',
         element: <SignInPage />,
@@ -45,6 +50,10 @@ export const router = createBrowserRouter([
         path: '/forgot-password',
         element: <ForgotPasswordPage />,
       },
+      {
+        path: '*',
+        element: <div style={{ marginTop: '100px' }}>NOT FOUND</div>,
+      },
       // {
       //   path: '/learn',
       //   element: <div>Learn</div>,
@@ -56,14 +65,14 @@ export const router = createBrowserRouter([
             path: '/profile',
             element: <ProfilePage />,
           },
-          // {
-          //   path: '/packs',
-          //   element: <Packs />,
-          // },
-          // {
-          //   path: '/cards',
-          //   element: <Cards />,
-          // },
+          {
+            path: '/decks',
+            element: <Decks />,
+          },
+          {
+            path: '/cards/:deckId',
+            element: <Cards />,
+          },
         ],
       },
     ],

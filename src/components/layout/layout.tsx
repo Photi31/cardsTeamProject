@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-import { ProgressLine } from 'assets/loaders'
-import { useLogoutMutation, useMeQuery } from 'services/auth'
+import { Loader } from 'assets/loaders'
+import { useLogoutMutation, useMeQuery } from 'services/authApi'
 import { Header } from 'ui/header'
 
 export const Layout = () => {
@@ -17,21 +17,37 @@ export const Layout = () => {
     setLoading(false)
   }, [data])
 
+  if (loading) return <Loader />
+
   const handleLogout = () => {
     return logout()
       .unwrap()
       .then(() => navigate('/login'))
       .catch(err => toast.error(err.data.message))
   }
-  const log = () => {
+  const login = () => {
     navigate('/login')
   }
 
-  if (loading) return <ProgressLine />
+  const profilePage = () => {
+    navigate('/profile')
+  }
+  const defualtPage = () => {
+    navigate('/decks')
+  }
+
+  if (isLoading) return <Loader />
 
   return (
     <>
-      <Header user={data} isLogin={!!data} onLogin={log} onLogout={handleLogout} />
+      <Header
+        profilePage={profilePage}
+        user={data && !('success' in data) ? data : null}
+        isLogin={!!data && !('success' in data)}
+        onLogin={login}
+        onLogout={handleLogout}
+        defualtPage={defualtPage}
+      />
       <Outlet />
     </>
   )
