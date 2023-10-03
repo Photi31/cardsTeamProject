@@ -52,7 +52,7 @@ export const TableDecks = () => {
     <Table.Row key={el.id}>
       <Table.Cell>
         <div className={s.packNameContainer}>
-          <Link to={`http://localhost:5173/cards/${el.id}`}>
+          <Link to={`/cards/${el.id}`}>
             {el.cover ? <img src={el.cover} alt="pack avatar" className={s.coverImage} /> : null}
             {el.name}
           </Link>
