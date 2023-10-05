@@ -69,6 +69,9 @@ export const Cards = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
   }
+  const onClearSearchInput = () => {
+    setSearchText('')
+  }
 
   if (isLoadingCards || isLoadingDeck) return <Loader />
 
@@ -111,6 +114,7 @@ export const Cards = () => {
               type={'search'}
               placeholder={`Search question`}
               onChange={e => setSearchText(e.currentTarget.value)}
+              onClear={onClearSearchInput}
               value={searchText || ''}
             />
           </div>

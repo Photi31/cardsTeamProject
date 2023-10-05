@@ -18,6 +18,7 @@ export type TextFieldType = {
   placeholder?: string
   disabled?: boolean
   errorMessage?: string
+  onClear?: () => void
 } & ComponentPropsWithoutRef<'input'>
 
 export const TextField = forwardRef<HTMLInputElement, TextFieldType>((props, ref) => {
@@ -28,6 +29,7 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldType>((props, ref
     placeholder = 'Input',
     type = 'text',
     label,
+    onClear,
     ...rest
   } = props
   const [isEye, setIsEye] = useState<boolean>(true)
@@ -40,6 +42,9 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldType>((props, ref
 
   const clearHandler = () => {
     setInputValue('')
+    if (onClear) {
+      onClear()
+    }
   }
 
   const Input = (type: string) => {

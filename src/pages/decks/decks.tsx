@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
@@ -38,9 +38,12 @@ export const Decks = () => {
   const [sort, setSort] = useState<Sort>(null)
   const [itemsPerPage, setItemsPerPage] = useState<number>(10)
   const [currentPage, setCurrentPage] = useState<number | undefined>(undefined)
+  const [name, setName] = useState<string | undefined>(undefined)
+  const [searchPack, setSearchPack] = useState<string | null>(null)
+
   const orderBy: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined
 
-  const decksQuery = { currentPage, itemsPerPage, orderBy }
+  const decksQuery = { currentPage, itemsPerPage, orderBy, name }
 
   const { data: meData } = useMeQuery<{ data: UserType }>()
   const { data: decks } = useGetDecksQuery(decksQuery)
@@ -55,6 +58,22 @@ export const Decks = () => {
     setItemsPerPage(Number(value))
     setCurrentPage(1)
   }
+
+  const onSearchPackHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchPack(e.currentTarget.value)
+  }
+  const onClearSearchInput = () => {
+    setSearchPack('')
+  }
+
+  useEffect(() => {
+    if (searchPack === null) return
+    const timerId = setTimeout(() => {
+      setName(searchPack)
+    }, 500)
+
+    return () => clearTimeout(timerId)
+  }, [searchPack])
 
   const dataTable = decks?.items.map(el => (
     <Table.Row key={el.id}>
@@ -90,7 +109,14 @@ export const Decks = () => {
         <CreateNewPack />
       </div>
       <div className={s.instrumentContainer}>
-        <TextField className={s.searchInput} type={'search'} placeholder={`search pack`} />
+        <TextField
+          className={s.searchInput}
+          type={'search'}
+          placeholder={`search pack`}
+          onChange={onSearchPackHandler}
+          onClear={onClearSearchInput}
+          value={searchPack || ''}
+        />
         <TabSwitcher
           title={'Show packs cards'}
           className={s.tabSwitchCard}

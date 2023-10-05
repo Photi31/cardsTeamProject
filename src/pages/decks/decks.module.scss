@@ -78,18 +78,17 @@
 }
 
 .packNameContainer {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-
   a{
+    display: flex;
+    gap: 10px;
+    align-items: center;
     color: var(--color-light-100);
   }
 }
 
 .coverImage {
-  width: 200px;
-  height: 100px;
+  width: 119px;
+  height: 50px;
   object-fit: cover;
   border-radius: 0;
 }
