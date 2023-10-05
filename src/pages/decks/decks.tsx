@@ -40,16 +40,30 @@ export const Decks = () => {
   const [currentPage, setCurrentPage] = useState<number | undefined>(undefined)
   const [name, setName] = useState<string | undefined>(undefined)
   const [searchPack, setSearchPack] = useState<string | null>(null)
+  const [authorId, setAuthorId] = useState<string | undefined>(undefined)
+  const [activeTab, setActiveTab] = useState<'My Cards' | 'All Cards'>('All Cards')
 
   const orderBy: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined
 
-  const decksQuery = { currentPage, itemsPerPage, orderBy, name }
+  const decksQuery = { currentPage, authorId, itemsPerPage, orderBy, name }
 
   const { data: meData } = useMeQuery<{ data: UserType }>()
   const { data: decks } = useGetDecksQuery(decksQuery)
 
   const tabSwitcherTitles = ['My Cards', 'All Cards']
 
+  const onMyCardHandler = (id: string) => {
+    if (activeTab === 'My Cards' && authorId === id) {
+      setAuthorId(undefined)
+      setActiveTab('All Cards')
+    }
+    if (activeTab === 'All Cards') {
+      setAuthorId(id)
+      setActiveTab('My Cards')
+    }
+  }
+
+  console.log(activeTab, authorId)
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
   }
@@ -121,7 +135,7 @@ export const Decks = () => {
           title={'Show packs cards'}
           className={s.tabSwitchCard}
           list={tabSwitcherTitles}
-          onValueChange={() => {}}
+          onValueChange={() => onMyCardHandler(meData.id)}
         />
         <Slider
           defaultValue={[0, 20]}
