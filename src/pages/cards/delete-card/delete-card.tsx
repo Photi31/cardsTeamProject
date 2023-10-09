@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 
 import { Delete } from 'assets/icons'
 import { useDeleteCardMutation } from 'services/cardsApi'
+import { GetCardsArgType } from 'services/decksApi/type'
 import { Button } from 'ui/button'
 import { Modal } from 'ui/modal'
 import { Typography } from 'ui/typography'
@@ -12,15 +13,15 @@ import s from './delete-card.module.scss'
 
 type Props = {
   cardId: string
-  question: string
+  cardsQuery: GetCardsArgType
 }
 
-export const DeleteCard = ({ cardId, question }: Props) => {
+export const DeleteCard = ({ cardId, cardsQuery }: Props) => {
   const [deleteCard] = useDeleteCardMutation()
   const [modalMode, setModalMode] = useState<boolean>(false)
 
   const onDeleteCard = () => {
-    deleteCard(cardId)
+    deleteCard({ cardId, ...cardsQuery })
       .unwrap()
       .then(() => {
         setModalMode(false)
@@ -42,7 +43,7 @@ export const DeleteCard = ({ cardId, question }: Props) => {
       <Modal title={'Delete Card'} open={modalMode} onClose={toggleModal}>
         <div className={s.descriptionContainer}>
           <Typography variant="body1">Do you really want to remove card</Typography>
-          <Typography variant={'subtitle1'}> {question} </Typography>?
+          <Typography variant={'subtitle1'}> {cardsQuery.question} </Typography>?
         </div>
         <div className={s.buttonContainer}>
           <Button variant={'secondary'} onClick={toggleModal}>

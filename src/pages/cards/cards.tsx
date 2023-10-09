@@ -136,7 +136,7 @@ export const Cards = () => {
                     {isMyDeck && (
                       <>
                         <UpdateCard cardId={el.id} question={el.question} answer={el.answer} />
-                        <DeleteCard cardId={el.id} question={el.question} />
+                        <DeleteCard cardId={el.id} cardsQuery={cardsQuery} />
                       </>
                     )}
                   </Table.Cell>

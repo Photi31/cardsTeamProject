@@ -1,3 +1,5 @@
+import { GetCardsArgType } from 'services/decksApi/type'
+
 export type Card = {
   id: string
   deckId: string
@@ -26,3 +28,7 @@ export type CardQueryType = {
   questionVideo?: string
   answerVideo?: string
 }
+
+export type DeleteCardType = {
+  cardId: string
+} & GetCardsArgType
