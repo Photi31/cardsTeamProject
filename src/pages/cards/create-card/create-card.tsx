@@ -1,13 +1,33 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+import { z } from 'zod'
 
 import { useCreateCardMutation } from 'services/decksApi'
 import { Button } from 'ui/button'
+import { ControlledTextField } from 'ui/controlled'
 import { Modal } from 'ui/modal'
-import { TextField } from 'ui/textField'
 
 import s from './create-card.module.scss'
+
+const schema = z.object({
+  question: z
+    .string()
+    .trim()
+    .nonempty('Enter question')
+    .min(3, 'Question must be at least 3 characters')
+    .max(500, 'Question must be maximum 500 characters'),
+  answer: z
+    .string()
+    .trim()
+    .nonempty('Enter answer')
+    .min(3, 'Answer must be at least 3 characters')
+    .max(500, 'Answer must be maximum 500 characters'),
+})
+
+type FormType = z.infer<typeof schema>
 
 type Props = {
   deckId: string
@@ -15,18 +35,24 @@ type Props = {
 
 export const CreateCard = ({ deckId }: Props) => {
   const [modalMode, setModalMode] = useState<boolean>(false)
-  const [question, setQuestion] = useState<string>('')
-  const [answer, setAnswer] = useState<string>('')
   const [createCard] = useCreateCardMutation()
 
-  const onCreateCard = () => {
+  const { control, handleSubmit, reset } = useForm<FormType>({
+    resolver: zodResolver(schema),
+    mode: 'onSubmit',
+    defaultValues: {
+      question: '',
+      answer: '',
+    },
+  })
+
+  const onCreateCard = ({ question, answer }: FormType) => {
     setModalMode(false)
+    reset()
 
     createCard({ deckId, question, answer })
       .unwrap()
       .then(() => {
-        setQuestion('')
-        setAnswer('')
         toast.success('Добавлено')
       })
       .catch(err => {
@@ -36,44 +62,41 @@ export const CreateCard = ({ deckId }: Props) => {
 
   const toggleModal = () => {
     setModalMode(!modalMode)
+    reset()
   }
 
-  const onChangeQuestion = (e: ChangeEvent<HTMLInputElement>) => {
-    setQuestion(e.currentTarget.value)
-  }
-
-  const onChangeAnswer = (e: ChangeEvent<HTMLInputElement>) => {
-    setAnswer(e.currentTarget.value)
-  }
+  const handleFormSubmitted = handleSubmit(onCreateCard)
 
   return (
     <>
       <Button onClick={toggleModal}>Add New Card</Button>
       <Modal showCloseButton={true} title={'Add new card'} open={modalMode} onClose={toggleModal}>
-        <TextField
-          onChange={onChangeQuestion}
-          value={question}
-          type={'text'}
-          label={'Question'}
-          placeholder={'Question'}
-        />
+        <form onSubmit={handleFormSubmitted}>
+          <ControlledTextField
+            placeholder={'Question'}
+            label={'Question'}
+            name={'question'}
+            control={control}
+            type="text"
+          />
 
-        <TextField
-          onChange={onChangeAnswer}
-          value={answer}
-          type={'text'}
-          label={'Answer'}
-          placeholder={'Answer'}
-        />
+          <ControlledTextField
+            placeholder={'Answer'}
+            label={'Answer'}
+            name={'answer'}
+            control={control}
+            type="text"
+          />
 
-        <div className={s.buttonContainer}>
-          <Button variant={'secondary'} onClick={toggleModal}>
-            Cancel
-          </Button>
-          <Button variant={'primary'} onClick={onCreateCard}>
-            Create card
-          </Button>
-        </div>
+          <div className={s.buttonContainer}>
+            <Button variant={'secondary'} onClick={toggleModal}>
+              Cancel
+            </Button>
+            <Button variant={'primary'} type="submit">
+              Create card
+            </Button>
+          </div>
+        </form>
       </Modal>
     </>
   )
