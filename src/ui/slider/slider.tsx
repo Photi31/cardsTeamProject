@@ -1,4 +1,4 @@
-import { CSSProperties, useState } from 'react'
+import { ChangeEvent, CSSProperties, useEffect, useState } from 'react'
 
 import * as RadixSlider from '@radix-ui/react-slider'
 
@@ -10,12 +10,26 @@ type Props = {
   label?: string
   className?: string
   style?: CSSProperties
+  onInputValueChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Slider = (props: Props & Omit<RadixSlider.SliderProps, keyof Props>) => {
-  const { min = 0, max = 10, defaultValue, label, className, style, ...restProps } = props
+  const {
+    min = 0,
+    max = 10,
+    onInputValueChange,
+    defaultValue,
+    label,
+    className,
+    style,
+    ...restProps
+  } = props
 
   const [value, setValue] = useState<number[]>(defaultValue || [min, max])
+
+  useEffect(() => {
+    setValue(defaultValue || [min, max])
+  }, [defaultValue, min, max])
 
   const handleOnValueChange = (value: number[]) => {
     setValue(value)
@@ -29,7 +43,14 @@ export const Slider = (props: Props & Omit<RadixSlider.SliderProps, keyof Props>
         </Typography>
       )}
       <div className={s.slider}>
-        <input type="number" className={s.input} value={value[0]} readOnly />
+        <input
+          type="number"
+          name={'value1'}
+          onChange={onInputValueChange}
+          className={s.input}
+          min={min}
+          value={value[0]}
+        />
         <RadixSlider.Root
           className={s.root}
           defaultValue={defaultValue}
@@ -44,7 +65,14 @@ export const Slider = (props: Props & Omit<RadixSlider.SliderProps, keyof Props>
           <RadixSlider.Thumb className={s.thumb} />
           <RadixSlider.Thumb className={s.thumb} />
         </RadixSlider.Root>
-        <input type="number" className={s.input} value={value[1]} readOnly />
+        <input
+          type="number"
+          max={max}
+          onChange={onInputValueChange}
+          name={'value2'}
+          className={s.input}
+          value={value[1]}
+        />
       </div>
     </div>
   )

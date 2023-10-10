@@ -41,29 +41,34 @@ export const Decks = () => {
   const [name, setName] = useState<string | undefined>(undefined)
   const [searchPack, setSearchPack] = useState<string | null>(null)
   const [authorId, setAuthorId] = useState<string | undefined>(undefined)
-  const [activeTab, setActiveTab] = useState<'My Cards' | 'All Cards'>('All Cards')
+  const [minCardsCount, setMinCardsCount] = useState<number | undefined>(0)
+  const [maxCardsCount, setMaxCardsCount] = useState<number | undefined>(50)
 
   const orderBy: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined
 
-  const decksQuery = { currentPage, authorId, itemsPerPage, orderBy, name }
+  const decksQuery = {
+    currentPage,
+    authorId,
+    itemsPerPage,
+    orderBy,
+    name,
+    minCardsCount: minCardsCount?.toString(),
+    maxCardsCount: maxCardsCount?.toString(),
+  }
 
   const { data: meData } = useMeQuery<{ data: UserType }>()
   const { data: decks } = useGetDecksQuery(decksQuery)
 
   const tabSwitcherTitles = ['My Cards', 'All Cards']
 
-  const onMyCardHandler = (id: string) => {
-    if (activeTab === 'My Cards' && authorId === id) {
+  const onMyCardHandler = (activeTab: string) => {
+    if (activeTab === 'My Cards') {
+      setAuthorId(meData.id)
+    } else {
       setAuthorId(undefined)
-      setActiveTab('All Cards')
-    }
-    if (activeTab === 'All Cards') {
-      setAuthorId(id)
-      setActiveTab('My Cards')
     }
   }
 
-  console.log(activeTab, authorId)
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
   }
@@ -88,6 +93,19 @@ export const Decks = () => {
 
     return () => clearTimeout(timerId)
   }, [searchPack])
+
+  const onChangeSlider = (value: number[]) => {
+    setMinCardsCount(value[0])
+    setMaxCardsCount(value[1])
+  }
+
+  const onChangeInput = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.currentTarget.name === 'value1') {
+      setMinCardsCount(+event.currentTarget.value)
+    } else {
+      setMaxCardsCount(+event.currentTarget.value)
+    }
+  }
 
   const dataTable = decks?.items.map(el => (
     <Table.Row key={el.id}>
@@ -135,14 +153,16 @@ export const Decks = () => {
           title={'Show packs cards'}
           className={s.tabSwitchCard}
           list={tabSwitcherTitles}
-          onValueChange={() => onMyCardHandler(meData.id)}
+          onValueChange={activeTab => onMyCardHandler(activeTab)}
         />
         <Slider
-          defaultValue={[0, 20]}
+          defaultValue={[minCardsCount!, maxCardsCount!]}
           min={0}
-          max={20}
+          max={50}
           className={s.sliderForCard}
           label={'Number of cards'}
+          onInputValueChange={onChangeInput}
+          onValueCommit={onChangeSlider}
         />
         <Button className={s.deleteButton} variant={'secondary'}>
           <Delete /> Clear filter
