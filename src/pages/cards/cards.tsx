@@ -88,11 +88,18 @@ export const Cards = () => {
         <div>
           <Typography variant="large">{deck?.name}</Typography>
         </div>
+
         <div>
           {!isEmptyDeck &&
             (isMyDeck ? <CreateCard deckId={deck?.id!} /> : <Button>Learn Deck</Button>)}
         </div>
       </div>
+
+      {deck?.cover && (
+        <div>
+          <img src={deck?.cover} alt="deck cover" className={s.deckCover} />
+        </div>
+      )}
 
       {isEmptyDeck &&
         (isMyDeck ? (

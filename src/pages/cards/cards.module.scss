@@ -4,17 +4,24 @@
   margin-top: 100px;
 }
 
+.backLink {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  width: fit-content;
+}
+
 .pageHeader {
   display: flex;
   justify-content: space-between;
   margin-top: 33px;
 }
 
-.backLink {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  width: fit-content;
+.deckCover {
+  all: unset;
+  max-width: 170px;
+  max-height: 107px;
+  margin-top: 15px;
 }
 
 .search {
