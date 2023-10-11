@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react'
 
 import { Link, useParams } from 'react-router-dom'
 
+import { Delete, Play, Redactor } from 'assets/icons'
 import ArrowBack from 'assets/icons/arrow-back'
+import MoreVerticalOutline from 'assets/icons/more-vertical-outline'
 import { Loader } from 'assets/loaders'
 import { useMeQuery } from 'services/authApi'
 import { UserType } from 'services/authApi/type'
 import { useGetCardsQuery, useGetDeckQuery } from 'services/decksApi'
 import { Button } from 'ui/button'
+import { Dropdown, DropdownItemWithIcon } from 'ui/dropDown/dropdown'
 import { Pagination } from 'ui/pagination'
 import { Select } from 'ui/select'
 import { Sort, Table } from 'ui/tables'
@@ -86,7 +89,28 @@ export const Cards = () => {
 
       <div className={s.pageHeader}>
         <div>
-          <Typography variant="large">{deck?.name}</Typography>
+          <Typography variant="large" as={'span'}>
+            {deck?.name}
+          </Typography>
+          {isMyDeck && (
+            <Dropdown align={'end'} trigger={<MoreVerticalOutline className={s.more} />}>
+              <DropdownItemWithIcon
+                // onClick={}
+                icon={<Play />}
+                text="Learn"
+              />
+              <DropdownItemWithIcon
+                // onClick={}
+                icon={<Redactor />}
+                text="Edit"
+              />
+              <DropdownItemWithIcon
+                // onClick={}
+                icon={<Delete />}
+                text="Delete"
+              />
+            </Dropdown>
+          )}
         </div>
 
         <div>
