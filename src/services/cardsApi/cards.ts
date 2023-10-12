@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { Card, CardQueryType, DeleteCardType } from 'services/cardsApi/type.ts'
+import { Card, DeleteCardType, UpdateCardArgType } from 'services/cardsApi/type.ts'
 import { baseQueryWithReauth } from 'services/common/base-query-with-reauth.ts'
 import { decksApi } from 'services/decksApi'
 
@@ -14,9 +14,9 @@ export const cardsApi = createApi({
         method: 'GET',
       }),
     }),
-    updateCard: build.mutation<any, CardQueryType>({
+    updateCard: build.mutation<any, UpdateCardArgType>({
       query: cardQuery => {
-        const { cardId, ...body } = cardQuery
+        const { cardId, body } = cardQuery
 
         return {
           url: `v1/cards/${cardId}`,
