@@ -2,12 +2,16 @@ import { useEffect, useState } from 'react'
 
 import { Link, useParams } from 'react-router-dom'
 
+import { Delete, Play, Redactor } from 'assets/icons'
 import ArrowBack from 'assets/icons/arrow-back'
+import MoreVerticalOutline from 'assets/icons/more-vertical-outline'
 import { Loader } from 'assets/loaders'
 import { useMeQuery } from 'services/authApi'
 import { UserType } from 'services/authApi/type'
 import { useGetCardsQuery, useGetDeckQuery } from 'services/decksApi'
 import { Button } from 'ui/button'
+import { Dropdown, DropdownItemWithIcon } from 'ui/dropDown/dropdown'
+import { Modal } from 'ui/modal'
 import { Pagination } from 'ui/pagination'
 import { Select } from 'ui/select'
 import { Sort, Table } from 'ui/tables'
@@ -40,6 +44,7 @@ export const Cards = () => {
   const [sort, setSort] = useState<Sort>(null)
   const [question, setQuestion] = useState<string | undefined>(undefined)
   const [searchText, setSearchText] = useState<string | null>(null)
+  const [open, setOpen] = useState<boolean>(false)
 
   const orderBy = sort ? `${sort?.key}-${sort?.direction}` : undefined
   const cardsQuery = { deckId, itemsPerPage, currentPage, orderBy, question }
@@ -73,6 +78,10 @@ export const Cards = () => {
     setSearchText('')
   }
 
+  const toggleModal = () => {
+    setOpen(!open)
+  }
+
   if (isLoadingCards || isLoadingDeck) return <Loader />
 
   return (
@@ -86,13 +95,37 @@ export const Cards = () => {
 
       <div className={s.pageHeader}>
         <div>
-          <Typography variant="large">{deck?.name}</Typography>
+          <Typography variant="large" as={'span'}>
+            {deck?.name}
+          </Typography>
+          {isMyDeck && (
+            <Dropdown align={'end'} trigger={<MoreVerticalOutline className={s.more} />}>
+              <DropdownItemWithIcon
+                // onClick={}
+                icon={<Play />}
+                text="Learn"
+              />
+              <DropdownItemWithIcon onClick={toggleModal} icon={<Redactor />} text="Edit" />
+              <DropdownItemWithIcon
+                // onClick={}
+                icon={<Delete />}
+                text="Delete"
+              />
+            </Dropdown>
+          )}
         </div>
+
         <div>
           {!isEmptyDeck &&
             (isMyDeck ? <CreateCard deckId={deck?.id!} /> : <Button>Learn Deck</Button>)}
         </div>
       </div>
+
+      {deck?.cover && (
+        <div>
+          <img src={deck?.cover} alt="deck cover" className={s.deckCover} />
+        </div>
+      )}
 
       {isEmptyDeck &&
         (isMyDeck ? (
@@ -135,8 +168,14 @@ export const Cards = () => {
                   <Table.Cell>
                     {isMyDeck && (
                       <>
-                        <UpdateCard cardId={el.id} question={el.question} answer={el.answer} />
-                        <DeleteCard cardId={el.id} question={el.question} />
+                        <UpdateCard
+                          cardId={el.id}
+                          question={el.question}
+                          answer={el.answer}
+                          questionImg={el.questionImg || ''}
+                          answerImg={el.answerImg || ''}
+                        />
+                        <DeleteCard cardId={el.id} cardsQuery={cardsQuery} />
                       </>
                     )}
                   </Table.Cell>
@@ -164,6 +203,9 @@ export const Cards = () => {
           </div>
         </>
       )}
+      <Modal showCloseButton={true} title={'Edit card'} open={open} onClose={toggleModal}>
+        Edit card template
+      </Modal>
     </div>
   )
 }

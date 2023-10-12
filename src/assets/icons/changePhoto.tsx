@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-const Icon = ({ onClick }: { onClick: () => void }) => {
+const Icon = ({ onClick }: { onClick?: () => void }) => {
   return (
     <svg
       onClick={onClick}

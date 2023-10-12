@@ -1,48 +1,48 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 
 import { toast } from 'react-toastify'
 
 import { Redactor } from 'assets/icons'
-import s from 'pages/decks/create-new-pack/create-new-pack.module.scss'
 import { useUpdateCardMutation } from 'services/cardsApi'
-import { Button } from 'ui/button'
 import { Modal } from 'ui/modal'
-import { TextField } from 'ui/textField'
+
+import { FormCard, FormType } from '../form-card'
 
 type Props = {
   cardId: string
   question: string
   answer: string
+  questionImg: string
+  answerImg: string
 }
 
-export const UpdateCard = ({ cardId, question, answer }: Props) => {
+export const UpdateCard = ({ cardId, question, answer, questionImg, answerImg }: Props) => {
   const [updateCard] = useUpdateCardMutation()
   const [modalMode, setModalMode] = useState<boolean>(false)
-  const [newQuestion, setNewQuestion] = useState<string>(question)
-  const [newAnswer, setNewAnswer] = useState<string>(answer)
 
-  const onUpdateCard = () => {
-    updateCard({ cardId, question: newQuestion, answer: newAnswer })
+  const onUpdateCard = ({ question, answer, questionImg, answerImg }: FormType) => {
+    setModalMode(false)
+
+    const form = new FormData()
+
+    form.append('question', question)
+    form.append('answer', answer)
+    questionImg[0] && form.append('questionImg', questionImg[0])
+    answerImg[0] && form.append('answerImg', answerImg[0])
+
+    updateCard({ cardId, body: form })
       .unwrap()
       .then(() => {
         setModalMode(false)
         toast.success('Сохранено')
       })
       .catch(err => {
-        toast.error(err.data.errorMessages[0].message)
+        toast.error(err.data.message || err.data.errorMessages[0].message)
       })
   }
 
   const toggleModal = () => {
     setModalMode(!modalMode)
-  }
-
-  const onChangeQuestion = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewQuestion(e.currentTarget.value)
-  }
-
-  const onChangeAnswer = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewAnswer(e.currentTarget.value)
   }
 
   return (
@@ -51,30 +51,14 @@ export const UpdateCard = ({ cardId, question, answer }: Props) => {
         <Redactor />
       </div>
       <Modal showCloseButton={true} title={'Edit card'} open={modalMode} onClose={toggleModal}>
-        <TextField
-          onChange={onChangeQuestion}
-          value={newQuestion}
-          type={'text'}
-          label={'Question'}
-          placeholder={'Question'}
+        <FormCard
+          onCancel={toggleModal}
+          onSaveCard={onUpdateCard}
+          question={question}
+          answer={answer}
+          questionImg={questionImg}
+          answerImg={answerImg}
         />
-
-        <TextField
-          onChange={onChangeAnswer}
-          value={newAnswer}
-          type={'text'}
-          label={'Answer'}
-          placeholder={'Answer'}
-        />
-
-        <div className={s.buttonContainer}>
-          <Button variant={'secondary'} onClick={toggleModal}>
-            Cancel
-          </Button>
-          <Button variant={'primary'} onClick={onUpdateCard}>
-            Save
-          </Button>
-        </div>
       </Modal>
     </>
   )

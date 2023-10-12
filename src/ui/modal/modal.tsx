@@ -43,8 +43,11 @@ const dropIn = {
     },
   },
   exit: {
-    y: '100vh',
+    y: '50vh',
     opacity: 0,
+    transition: {
+      duration: 0.1,
+    },
   },
 }
 

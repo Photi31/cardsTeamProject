@@ -10,22 +10,19 @@
   width: 100%;
   margin-bottom: 6px;
 
-
   > div {
     position: relative;
   }
-}
 
-img {
-  width: 96px;
-  height: 96px;
-  object-fit: cover;
-  border-radius: 50%;
+  img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 }
 
 .title {
   margin-bottom: 27px;
   text-align: center;
 }
-
-

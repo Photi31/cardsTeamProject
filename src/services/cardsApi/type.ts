@@ -1,3 +1,5 @@
+import { GetCardsArgType } from 'services/decksApi/type'
+
 export type Card = {
   id: string
   deckId: string
@@ -17,12 +19,11 @@ export type Card = {
   updated: string
 }
 
-export type CardQueryType = {
+export type UpdateCardArgType = {
   cardId: string
-  question?: string
-  answer?: string
-  questionImg?: string
-  answerImg?: string
-  questionVideo?: string
-  answerVideo?: string
+  body: FormData
 }
+
+export type DeleteCardType = {
+  cardId: string
+} & GetCardsArgType

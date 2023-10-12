@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { Card, CardQueryType } from 'services/cardsApi/type.ts'
+import { Card, DeleteCardType, UpdateCardArgType } from 'services/cardsApi/type.ts'
 import { baseQueryWithReauth } from 'services/common/base-query-with-reauth.ts'
 import { decksApi } from 'services/decksApi'
 
@@ -14,9 +14,9 @@ export const cardsApi = createApi({
         method: 'GET',
       }),
     }),
-    updateCard: build.mutation<any, CardQueryType>({
+    updateCard: build.mutation<any, UpdateCardArgType>({
       query: cardQuery => {
-        const { cardId, ...body } = cardQuery
+        const { cardId, body } = cardQuery
 
         return {
           url: `v1/cards/${cardId}`,
@@ -29,16 +29,31 @@ export const cardsApi = createApi({
         dispatch(decksApi.util.invalidateTags(['Cards']))
       },
     }),
-    deleteCard: build.mutation<any, string>({
-      query: cardId => {
+
+    deleteCard: build.mutation<any, DeleteCardType>({
+      query: ({ cardId }) => {
         return {
           url: `v1/cards/${cardId}`,
           method: 'DELETE',
         }
       },
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        await queryFulfilled
-        dispatch(decksApi.util.invalidateTags(['Cards']))
+      async onQueryStarted(deleteCardsQuery, { dispatch, queryFulfilled }) {
+        const { cardId, ...getCardsQuery } = deleteCardsQuery
+
+        const patchResult = dispatch(
+          decksApi.util.updateQueryData('getCards', getCardsQuery, draft => {
+            const index = draft.items.findIndex(card => card.id === cardId)
+
+            if (index !== -1) draft.items.splice(index, 1)
+          })
+        )
+
+        try {
+          await queryFulfilled
+          dispatch(decksApi.util.invalidateTags(['Cards']))
+        } catch {
+          patchResult.undo()
+        }
       },
     }),
   }),

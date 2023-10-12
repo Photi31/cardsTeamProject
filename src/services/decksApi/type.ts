@@ -70,6 +70,39 @@ export type GetCardsArgType = {
   itemsPerPage?: number
 }
 
+export type CreateCardArgType = {
+  deckId: string
+  body: FormData
+}
+
+export type CreateCardQueryType = {
+  question: string
+  answer: string
+  questionImg: string
+  answerImg: string
+  questionVideo: string
+  answerVideo: string
+}
+
+export type ResponseCreateCardType = {
+  id: string
+  deckId: string
+  userId: string
+  question: string
+  answer: string
+  shots: number
+  questionImg: string
+  answerImg: string
+  answerVideo: string
+  questionVideo: string
+  comments: string
+  type: string
+  rating: number
+  moreId: string
+  created: string
+  updated: string
+}
+
 export type CreateDecksArgType = Pick<ItemType, 'name' | 'isPrivate' | 'cover'>
 export type DeleteDecksArgType = Pick<ItemType, 'id'>
 export type UpdateDecksArgType = {

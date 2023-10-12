@@ -3,11 +3,13 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import { baseQueryWithReauth } from 'services/common/base-query-with-reauth.ts'
 import {
   CardsType,
+  CreateCardArgType,
   DecksQueryType,
   DecksType,
   DeleteDecksArgType,
   GetCardsArgType,
   ItemType,
+  ResponseCreateCardType,
   UpdateDecksArgType,
 } from 'services/decksApi/type.ts'
 
@@ -77,9 +79,9 @@ export const decksApi = createApi({
       },
       providesTags: ['Deck'],
     }),
-    createCard: build.mutation({
+    createCard: build.mutation<ResponseCreateCardType, CreateCardArgType>({
       query: queryParams => {
-        const { deckId, ...body } = queryParams
+        const { deckId, body } = queryParams
 
         return {
           url: `v1/decks/${deckId}/cards`,
