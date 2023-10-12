@@ -11,11 +11,12 @@ export type TabSwitcherType = {
   list: string[]
   title?: string
   defaultValue?: string
+  value?: string
   onValueChange: (value: string) => void
 }
 
 export const TabSwitcher = (props: TabSwitcherType) => {
-  const { list, title, className, disabled = false, defaultValue = list[1], onValueChange } = props
+  const { list, title, className, disabled = false, defaultValue, value, onValueChange } = props
 
   const changeValueHandler = (value: string) => {
     onValueChange(value)
@@ -36,6 +37,7 @@ export const TabSwitcher = (props: TabSwitcherType) => {
       <Tabs.Root
         className={classNames.root}
         defaultValue={defaultValue}
+        value={value}
         aria-label={title}
         onValueChange={changeValueHandler}
       >
