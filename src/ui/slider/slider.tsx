@@ -10,6 +10,7 @@ type Props = {
   label?: string
   className?: string
   style?: CSSProperties
+  value?: number[]
   onInputValueChange: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -22,17 +23,18 @@ export const Slider = (props: Props & Omit<RadixSlider.SliderProps, keyof Props>
     label,
     className,
     style,
+    value,
     ...restProps
   } = props
 
-  const [value, setValue] = useState<number[]>(defaultValue || [min, max])
+  const [currentValue, setCurrentValue] = useState<number[]>(defaultValue || value || [min, max])
 
   useEffect(() => {
-    setValue(defaultValue || [min, max])
+    setCurrentValue(defaultValue || [min, max])
   }, [defaultValue, min, max])
 
   const handleOnValueChange = (value: number[]) => {
-    setValue(value)
+    setCurrentValue(value)
   }
 
   return (
@@ -49,11 +51,12 @@ export const Slider = (props: Props & Omit<RadixSlider.SliderProps, keyof Props>
           onChange={onInputValueChange}
           className={s.input}
           min={min}
-          value={value[0]}
+          value={currentValue[0]}
         />
         <RadixSlider.Root
           className={s.root}
           defaultValue={defaultValue}
+          value={currentValue}
           onValueChange={handleOnValueChange}
           min={min}
           max={max}
@@ -71,7 +74,7 @@ export const Slider = (props: Props & Omit<RadixSlider.SliderProps, keyof Props>
           onChange={onInputValueChange}
           name={'value2'}
           className={s.input}
-          value={value[1]}
+          value={currentValue[1]}
         />
       </div>
     </div>
