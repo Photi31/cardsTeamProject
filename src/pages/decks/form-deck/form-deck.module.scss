@@ -1,0 +1,23 @@
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.inputFile {
+  cursor: pointer;
+  display: none;
+  width: 10px;
+  height: 10px;
+}
+
+.editImgButton {
+  margin-top: 5px;
+}
+
+.preview {
+  all: unset;
+  max-width: 170px;
+  max-height: 107px;
+  margin-top: 5px;
+}

@@ -142,7 +142,7 @@ export const Decks = () => {
             <Play />
           </Button>
           {el.author.id === meData?.id && (
-            <UpdatePack id={el.id} isPrivate={el.isPrivate} name={el.name} />
+            <UpdatePack cover={el.cover} id={el.id} isPrivate={el.isPrivate} packName={el.name} />
           )}
           {el.author.id === meData?.id && <DeletePack id={el.id} name={el.name} />}
         </div>
