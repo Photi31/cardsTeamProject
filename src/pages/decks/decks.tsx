@@ -40,9 +40,10 @@ export const Decks = () => {
   const [currentPage, setCurrentPage] = useState<number | undefined>(undefined)
   const [name, setName] = useState<string | undefined>(undefined)
   const [searchPack, setSearchPack] = useState<string | null>(null)
+  const [currentTab, setCurrentTab] = useState<string | undefined>(undefined)
   const [authorId, setAuthorId] = useState<string | undefined>(undefined)
   const [minCardsCount, setMinCardsCount] = useState<number | undefined>(0)
-  const [maxCardsCount, setMaxCardsCount] = useState<number | undefined>(50)
+  const [maxCardsCount, setMaxCardsCount] = useState<number | undefined>(undefined)
 
   const orderBy: string | undefined = sort ? `${sort?.key}-${sort?.direction}` : undefined
 
@@ -64,9 +65,24 @@ export const Decks = () => {
   const onMyCardHandler = (activeTab: string) => {
     if (activeTab === 'My Cards') {
       setAuthorId(meData.id)
+      setCurrentTab(activeTab)
     } else {
       setAuthorId(undefined)
+      setCurrentTab(activeTab)
     }
+  }
+
+  const onClickClearAllFilters = () => {
+    setSort(null)
+    setName(undefined)
+    setSearchPack(null)
+    setAuthorId(undefined)
+    // setMinCardsCount(0)
+    // setMaxCardsCount(50)
+    onChangeSlider([0, decks?.maxCardsCount!])
+    onMyCardHandler('All Cards')
+    setCurrentTab('All Cards')
+    handleSelectValueChange('10')
   }
 
   const handlePageChange = (page: number) => {
@@ -153,18 +169,20 @@ export const Decks = () => {
           title={'Show packs cards'}
           className={s.tabSwitchCard}
           list={tabSwitcherTitles}
+          value={currentTab}
+          defaultValue="All Cards"
           onValueChange={activeTab => onMyCardHandler(activeTab)}
         />
         <Slider
-          defaultValue={[minCardsCount!, maxCardsCount!]}
+          defaultValue={[minCardsCount!, maxCardsCount || decks?.maxCardsCount!]}
           min={0}
-          max={50}
+          max={decks?.maxCardsCount}
           className={s.sliderForCard}
           label={'Number of cards'}
           onInputValueChange={onChangeInput}
           onValueCommit={onChangeSlider}
         />
-        <Button className={s.deleteButton} variant={'secondary'}>
+        <Button onClick={onClickClearAllFilters} className={s.deleteButton} variant={'secondary'}>
           <Delete /> Clear filter
         </Button>
       </div>
@@ -187,6 +205,7 @@ export const Decks = () => {
             values={['10', '20', '30', '40', '50']}
             variant={'body2'}
             onValueChange={handleSelectValueChange}
+            value={String(itemsPerPage)}
           />
           на странице
         </div>
