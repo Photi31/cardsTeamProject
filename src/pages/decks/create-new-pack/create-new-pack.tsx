@@ -44,7 +44,12 @@ export const CreateNewPack = () => {
         open={modalMod}
         onClose={createPackModal}
       >
-        <FormDeck isPrivate={false} onSaveDeck={onCreateDecks} onCancel={createPackModal} />
+        <FormDeck
+          buttonName={'Add new pack'}
+          isPrivate={false}
+          onSaveDeck={onCreateDecks}
+          onCancel={createPackModal}
+        />
       </Modal>
     </>
   )

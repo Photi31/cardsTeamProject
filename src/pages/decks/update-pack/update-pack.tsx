@@ -49,6 +49,7 @@ export const UpdatePack = ({ id, cover, packName, isPrivate }: Props) => {
       </Button>
       <Modal showCloseButton={true} title={'Edit pack'} open={modalMod} onClose={createPackModal}>
         <FormDeck
+          buttonName={'Save Changes'}
           packName={packName}
           deckImg={cover}
           isPrivate={isPrivate}

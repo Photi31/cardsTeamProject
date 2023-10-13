@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { ChangePhoto } from 'assets/icons'
+import { ChangePhoto, Delete } from 'assets/icons'
 import { Button } from 'ui/button'
 import { ControlledTextField } from 'ui/controlled'
 import { ControlledCheckbox } from 'ui/controlled/controlled-checkbox.tsx'
@@ -31,16 +31,16 @@ type Props = {
   packName?: string
   isPrivate?: boolean
   deckImg?: string
+  buttonName: string
 }
 
 export const FormDeck = (props: Props) => {
-  const { onSaveDeck, packName, isPrivate, deckImg, onCancel } = props
+  const { onSaveDeck, buttonName, packName, isPrivate, deckImg, onCancel } = props
 
   const packNameInputRef = useRef<HTMLInputElement | null>(null)
   const [decksImgPreview, setDecksImgPreview] = useState<string>(deckImg || '')
-  const [isImageDeleted, setIsImageDeleted] = useState(false)
 
-  const { control, handleSubmit, register } = useForm<FormDeckType>({
+  const { control, handleSubmit, register, setValue } = useForm<FormDeckType>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
     defaultValues: {
@@ -49,16 +49,17 @@ export const FormDeck = (props: Props) => {
     },
   })
 
+  const onDeletedeckImg = () => {
+    setDecksImgPreview('')
+    setValue('deckImg', '')
+  }
+
   const onImgButtonClick = (ref: React.MutableRefObject<HTMLInputElement | null>) => {
     ref?.current?.click()
   }
 
   const onImgChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) {
-      setIsImageDeleted(true) // Устанавливаем флаг удаления фотографии
-
-      return
-    }
+    if (!e.target.files) return
 
     toBase64(e.target.files[0])
       .then(img => {
@@ -98,9 +99,15 @@ export const FormDeck = (props: Props) => {
           }}
         />
       </Button>
-      <Button onClick={() => setIsImageDeleted(true)}>Delete</Button>
 
-      {decksImgPreview && !isImageDeleted && <img src={decksImgPreview} className={s.preview} />}
+      {decksImgPreview && (
+        <div className={s.preview}>
+          <img alt={'uploadImg'} src={decksImgPreview} className={s.preview} />
+          <button className={s.deleteButton} onClick={onDeletedeckImg}>
+            <Delete />
+          </button>
+        </div>
+      )}
 
       <ControlledCheckbox
         checked={isPrivate}
@@ -114,7 +121,7 @@ export const FormDeck = (props: Props) => {
           Cancel
         </Button>
         <Button variant={'primary'} type="submit">
-          Create pack
+          {buttonName}
         </Button>
       </div>
     </form>

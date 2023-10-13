@@ -16,8 +16,36 @@
 }
 
 .preview {
-  all: unset;
+  position: relative;
   max-width: 170px;
   max-height: 107px;
   margin-top: 5px;
+}
+
+.deleteButton {
+  cursor: pointer;
+
+  position: absolute;
+  top: 7px;
+  right: 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+
+  transition: 0.2s background-color;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color-dark-300);
+    outline: none;
+  }
 }
