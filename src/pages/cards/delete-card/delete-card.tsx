@@ -42,8 +42,13 @@ export const DeleteCard = ({ cardId, cardsQuery }: Props) => {
       </div>
       <Modal title={'Delete Card'} open={modalMode} onClose={toggleModal}>
         <div className={s.descriptionContainer}>
-          <Typography variant="body1">Do you really want to remove card</Typography>
-          <Typography variant={'subtitle1'}> {cardsQuery.question} </Typography>?
+          <Typography variant="body1">
+            Do you really want to remove card{' '}
+            <Typography variant={'subtitle1'} as="span" style={{ wordBreak: 'break-word' }}>
+              {cardsQuery.question}
+            </Typography>
+            ?
+          </Typography>
         </div>
         <div className={s.buttonContainer}>
           <Button variant={'secondary'} onClick={toggleModal}>

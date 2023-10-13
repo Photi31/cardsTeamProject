@@ -178,7 +178,7 @@ export const Cards = () => {
                           questionImg={el.questionImg || ''}
                           answerImg={el.answerImg || ''}
                         />
-                        <DeleteCard cardId={el.id} cardsQuery={cardsQuery} />
+                        <DeleteCard cardId={el.id} cardsQuery={el} />
                       </>
                     )}
                   </Table.Cell>
