@@ -76,10 +76,7 @@
     white-space: nowrap;
 
     img {
-      // width: auto;
       max-width: 100px;
-
-      // height: 100%;
       max-height: 24px;
       vertical-align: middle;
       border-radius: 0;
@@ -88,7 +85,9 @@
     svg {
       vertical-align: middle;
     }
+  }
 
+  td:last-child {
     div {
       cursor: pointer;
       display: inline-block;
@@ -98,6 +97,10 @@
       }
     }
   }
+}
+
+.rating {
+  font-size: 16px;
 }
 
 .paginationContainer {

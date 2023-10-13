@@ -13,6 +13,7 @@ import { Button } from 'ui/button'
 import { Dropdown, DropdownItemWithIcon } from 'ui/dropDown/dropdown'
 import { Modal } from 'ui/modal'
 import { Pagination } from 'ui/pagination'
+import { Rating } from 'ui/rating'
 import { Select } from 'ui/select'
 import { Sort, Table } from 'ui/tables'
 import { TextField } from 'ui/textField'
@@ -164,7 +165,9 @@ export const Cards = () => {
                     {el.answerImg && <img src={el.answerImg} />} {el.answer}
                   </Table.Cell>
                   <Table.Cell>{new Date(el.updated).toLocaleString()}</Table.Cell>
-                  <Table.Cell>{el.grade}</Table.Cell>
+                  <Table.Cell className={s.rating}>
+                    <Rating grade={el.grade} />
+                  </Table.Cell>
                   <Table.Cell>
                     {isMyDeck && (
                       <>
@@ -175,7 +178,7 @@ export const Cards = () => {
                           questionImg={el.questionImg || ''}
                           answerImg={el.answerImg || ''}
                         />
-                        <DeleteCard cardId={el.id} cardsQuery={cardsQuery} />
+                        <DeleteCard cardId={el.id} cardsQuery={el} />
                       </>
                     )}
                   </Table.Cell>

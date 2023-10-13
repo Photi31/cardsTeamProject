@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { ChangePhoto } from 'assets/icons'
+import { ChangePhoto, Delete } from 'assets/icons'
 import { Button } from 'ui/button'
 import { ControlledTextField } from 'ui/controlled'
 import { toBase64 } from 'utils/toBase64'
@@ -47,7 +47,7 @@ export const FormCard = (props: Props) => {
   const [questionImgPreview, setQuestionImgPreview] = useState<string>(questionImg || '')
   const [answerImgPreview, setAnswerImgPreview] = useState<string>(answerImg || '')
 
-  const { control, handleSubmit, register } = useForm<FormType>({
+  const { control, handleSubmit, register, setValue } = useForm<FormType>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
     defaultValues: {
@@ -58,6 +58,16 @@ export const FormCard = (props: Props) => {
 
   const onImgButtonClick = (ref: React.MutableRefObject<HTMLInputElement | null>) => {
     ref?.current?.click()
+  }
+
+  const onDeleteQestionImg = () => {
+    setQuestionImgPreview('')
+    setValue('questionImg', '')
+  }
+
+  const onDeleteAnswerImg = () => {
+    setAnswerImgPreview('')
+    setValue('answerImg', '')
   }
 
   const onImgChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -104,6 +114,17 @@ export const FormCard = (props: Props) => {
         />
       </Button>
 
+      {questionImgPreview && (
+        <Button
+          variant="secondary"
+          className={s.editImgButton}
+          type="button"
+          onClick={onDeleteQestionImg}
+        >
+          <Delete />
+        </Button>
+      )}
+
       {questionImgPreview && <img src={questionImgPreview} className={s.preview} />}
 
       <ControlledTextField
@@ -131,6 +152,17 @@ export const FormCard = (props: Props) => {
           }}
         />
       </Button>
+
+      {answerImgPreview && (
+        <Button
+          variant="secondary"
+          className={s.editImgButton}
+          type="button"
+          onClick={onDeleteAnswerImg}
+        >
+          <Delete />
+        </Button>
+      )}
 
       {answerImgPreview && <img src={answerImgPreview} className={s.preview} />}
 
