@@ -27,8 +27,18 @@ export const UpdateCard = ({ cardId, question, answer, questionImg, answerImg }:
 
     form.append('question', question)
     form.append('answer', answer)
-    questionImg[0] && form.append('questionImg', questionImg[0])
-    answerImg[0] && form.append('answerImg', answerImg[0])
+
+    if (typeof questionImg === 'string') {
+      form.append('questionImg', '')
+    } else {
+      questionImg[0] && form.append('questionImg', questionImg[0])
+    }
+
+    if (typeof answerImg === 'string') {
+      form.append('answerImg', '')
+    } else {
+      answerImg[0] && form.append('answerImg', answerImg[0])
+    }
 
     updateCard({ cardId, body: form })
       .unwrap()
