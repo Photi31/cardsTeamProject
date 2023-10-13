@@ -22,7 +22,6 @@
     height: 36px;
   }
 
-
   .userContainer {
     cursor: pointer;
 
@@ -31,7 +30,6 @@
     gap: 10px;
     align-items: center;
 
-
     .userName {
       border-bottom: 1px dashed white;
     }
@@ -39,11 +37,10 @@
     img {
       width: 36px;
       height: 36px;
+      object-fit: cover;
       border-radius: 36px;
     }
   }
-
-
 }
 
 .button {
